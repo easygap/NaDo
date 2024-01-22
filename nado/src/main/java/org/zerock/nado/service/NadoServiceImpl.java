@@ -1,4 +1,4 @@
-package org.zerock.guestbook.service;
+package org.zerock.nado.service;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -8,12 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.zerock.guestbook.dto.GuestbookDTO;
-import org.zerock.guestbook.dto.PageRequestDTO;
-import org.zerock.guestbook.dto.PageResultDTO;
-import org.zerock.guestbook.entity.Guestbook;
-import org.zerock.guestbook.entity.QGuestbook;
-import org.zerock.guestbook.repository.GuestbookRepository;
+import org.zerock.nado.dto.NadoDTO;
+import org.zerock.nado.dto.PageRequestDTO;
+import org.zerock.nado.dto.PageResultDTO;
+import org.zerock.nado.entity.Nado;
+import org.zerock.nado.entity.QNado;
+import org.zerock.nado.repository.NadoRepository;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -21,15 +21,15 @@ import java.util.function.Function;
 @Service
 @Log4j2
 @RequiredArgsConstructor // 의존성 자동 주입
-public class GuestbookServiceImpl implements GuestbookService {
-    private final GuestbookRepository repository; // 반드시 final로 선언
+public class NadoServiceImpl implements NadoService {
+    private final NadoRepository repository; // 반드시 final로 선언
 
     @Override
-    public Long register(GuestbookDTO dto) {
+    public Long register(NadoDTO dto) {
         log.info("DTO------------------------");
         log.info(dto);
 
-        Guestbook entity = dtoToEntity(dto);
+        Nado entity = dtoToEntity(dto);
 
         log.info(entity);
 
@@ -39,26 +39,26 @@ public class GuestbookServiceImpl implements GuestbookService {
     }
 
     @Override
-    public PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO) {
+    public PageResultDTO<NadoDTO, Nado> getList(PageRequestDTO requestDTO) {
         Pageable pageable = requestDTO.getPageable(Sort.by("gno").descending());
 
         BooleanBuilder booleanBuilder = getSearch(requestDTO); // 검색 조건 처리
 
-        Page<Guestbook> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
+        Page<Nado> result = repository.findAll(booleanBuilder, pageable); // Querydsl 사용
 
-        Function<Guestbook, GuestbookDTO> fn = (entity -> entityToDto(entity));
+        Function<Nado, NadoDTO> fn = (entity -> entityToDto(entity));
 
         return new PageResultDTO<>(result, fn);
     }
 
     @Override
-    public Guestbook dtoToEntity(GuestbookDTO dto) {
-        return GuestbookService.super.dtoToEntity(dto);
+    public Nado dtoToEntity(NadoDTO dto) {
+        return NadoService.super.dtoToEntity(dto);
     }
 
     @Override
-    public GuestbookDTO read(Long gno) {
-        Optional<Guestbook> result = repository.findById(gno);
+    public NadoDTO read(Long gno) {
+        Optional<Nado> result = repository.findById(gno);
 
         System.out.println("ServiceImple : read : " + gno);
         System.out.println("result.isPresent() : " + result.isPresent());
@@ -72,13 +72,13 @@ public class GuestbookServiceImpl implements GuestbookService {
     }
 
     @Override
-    public void modify(GuestbookDTO dto) {
+    public void modify(NadoDTO dto) {
         // 업데이트 하는 항목은 '제목', '내용'
 
-        Optional<Guestbook> result = repository.findById(dto.getGno());
+        Optional<Nado> result = repository.findById(dto.getGno());
 
         if (result.isPresent()) {
-            Guestbook entity = result.get();
+            Nado entity = result.get();
 
             entity.changeTitle(dto.getTitle());
             entity.changeContent(dto.getContent());
@@ -92,11 +92,11 @@ public class GuestbookServiceImpl implements GuestbookService {
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        QGuestbook qGuestbook = QGuestbook.guestbook;
+        QNado qNado = QNado.nado;
 
         String keyword = requestDTO.getKeyword();
 
-        BooleanExpression expression = qGuestbook.gno.gt(0L); // gno > 0 조건만 생성
+        BooleanExpression expression = qNado.gno.gt(0L); // gno > 0 조건만 생성
 
         booleanBuilder.and(expression);
 
@@ -108,13 +108,13 @@ public class GuestbookServiceImpl implements GuestbookService {
         BooleanBuilder conditionBuilder = new BooleanBuilder();
 
         if (type.contains("t")) {
-            conditionBuilder.or(qGuestbook.title.contains(keyword));
+            conditionBuilder.or(qNado.title.contains(keyword));
         }
         if (type.contains("c")) {
-            conditionBuilder.or(qGuestbook.content.contains(keyword));
+            conditionBuilder.or(qNado.content.contains(keyword));
         }
         if (type.contains("w")) {
-            conditionBuilder.or(qGuestbook.writer.contains(keyword));
+            conditionBuilder.or(qNado.writer.contains(keyword));
         }
 
         // 모든 조건 통합

@@ -1,42 +1,42 @@
-package org.zerock.guestbook.service;
+package org.zerock.nado.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.zerock.guestbook.dto.GuestbookDTO;
-import org.zerock.guestbook.dto.PageRequestDTO;
-import org.zerock.guestbook.dto.PageResultDTO;
-import org.zerock.guestbook.entity.Guestbook;
+import org.zerock.nado.dto.NadoDTO;
+import org.zerock.nado.dto.PageRequestDTO;
+import org.zerock.nado.dto.PageResultDTO;
+import org.zerock.nado.entity.Nado;
 
 @SpringBootTest
-public class GuestbookServiceTests {
+public class NadoServiceTests {
     @Autowired
-    private GuestbookService service;
+    private NadoService service;
 
     @Test
     public void testRegister(){
-        GuestbookDTO guestbookDTO = GuestbookDTO.builder()
+        NadoDTO nadoDTO = NadoDTO.builder()
                 .title("Sample Title...")
                 .content("Sample Content...")
                 .writer("user0")
                 .build();
 
-        System.out.println(service.register(guestbookDTO));
+        System.out.println(service.register(nadoDTO));
     }
 
     @Test
     public void testList(){
         PageRequestDTO pageRequestDTO = PageRequestDTO.builder().page(1).
                 size(10).build();
-        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageRequestDTO);
+        PageResultDTO<NadoDTO, Nado> resultDTO = service.getList(pageRequestDTO);
 
         System.out.println("PREV: " + resultDTO.isPrev());
         System.out.println("NEXT: " + resultDTO.isNext());
         System.out.println("TOTAL: " + resultDTO.getTotalPage());
 
         System.out.println("------------------------------------");
-        for(GuestbookDTO guestbookDTO : resultDTO.getDtoList()){
-            System.out.println(guestbookDTO);
+        for(NadoDTO nadoDTO : resultDTO.getDtoList()){
+            System.out.println(nadoDTO);
         }
 
         System.out.println("------------------------------------");
@@ -52,15 +52,15 @@ public class GuestbookServiceTests {
                 .keyword("모발")  // 검색 키워드
                 .build();
 
-        PageResultDTO<GuestbookDTO, Guestbook> resultDTO = service.getList(pageRequestDTO);
+        PageResultDTO<NadoDTO, Nado> resultDTO = service.getList(pageRequestDTO);
 
         System.out.println("PREV: " + resultDTO.isPrev());
         System.out.println("NEXT: " + resultDTO.isNext());
         System.out.println("TOTAL: " + resultDTO.getTotalPage());
 
         System.out.println("---------------------------------------");
-        for (GuestbookDTO guestbookDTO : resultDTO.getDtoList()) {
-            System.out.println(guestbookDTO);
+        for (NadoDTO nadoDTO : resultDTO.getDtoList()) {
+            System.out.println(nadoDTO);
         }
 
         System.out.println("=======================================");
