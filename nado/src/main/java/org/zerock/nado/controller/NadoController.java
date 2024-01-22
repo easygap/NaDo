@@ -85,4 +85,9 @@ public class NadoController {
 
         return "redirect:/nado/read";
     }
+
+    @GetMapping("/Community")
+    public void Community(){
+
+    }
 }
