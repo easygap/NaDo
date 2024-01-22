@@ -1,4 +1,4 @@
-package org.zerock.guestbook.dto;
+package org.zerock.nado.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class GuestbookDTO {
+public class NadoDTO {
     private Long gno;
     private String title;
     private String content;

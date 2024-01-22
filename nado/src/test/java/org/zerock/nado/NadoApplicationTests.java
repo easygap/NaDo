@@ -1,4 +1,4 @@
-package org.zerock.guestbook;
+package org.zerock.nado;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -9,43 +9,42 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.zerock.guestbook.entity.Guestbook;
-import org.zerock.guestbook.entity.QGuestbook;
-import org.zerock.guestbook.repository.GuestbookRepository;
+import org.zerock.nado.entity.Nado;
+import org.zerock.nado.entity.QNado;
+import org.zerock.nado.repository.NadoRepository;
 
-import java.security.PublicKey;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-class GuestbookApplicationTests {
+class NadoApplicationTests {
 
 	@Autowired
-	private GuestbookRepository guestbookRepository;
+	private NadoRepository nadoRepository;
 
 	@Test
 	public void insertDummies(){
 		IntStream.rangeClosed(1,300).forEach(i -> {
-			Guestbook guestbook = Guestbook.builder()
+			Nado nado = Nado.builder()
 					.title("Title...." + i)
 					.content("Content...." + i)
 					.writer("user" + (i % 10))
 					.build();
-			System.out.println(guestbookRepository.save(guestbook));
+			System.out.println(nadoRepository.save(nado));
 		});
 	}
 
 	@Test
 	public void updateTest(){
-		Optional<Guestbook> result = guestbookRepository.findById(300L); // 존재하는 번호로 테스트
+		Optional<Nado> result = nadoRepository.findById(300L); // 존재하는 번호로 테스트
 
 		if(result.isPresent()){
-			Guestbook guestbook = result.get();
+			Nado nado = result.get();
 
-			guestbook.changeTitle("Changed Title....");
-			guestbook.changeContent("Changed Content...");
+			nado.changeTitle("Changed Title....");
+			nado.changeContent("Changed Content...");
 
-			guestbookRepository.save(guestbook);
+			nadoRepository.save(nado);
 		}
 	}
 
@@ -53,14 +52,14 @@ class GuestbookApplicationTests {
 	public void testQuery1(){
 		Pageable pageable = PageRequest.of(0, 10, Sort.by("gno").descending());
 
-		QGuestbook qGuestbook = QGuestbook.guestbook; // 1
+		QNado qNado = QNado.nado; //1
 		String keyword = "1";
 		BooleanBuilder builder = new BooleanBuilder(); // 2
-		BooleanExpression expression = qGuestbook.title.contains(keyword); // 3
+		BooleanExpression expression = qNado.title.contains(keyword); // 3
 		builder.and(expression); // 4
-		Page<Guestbook> result = guestbookRepository.findAll(builder, pageable); // 5
-		result.stream().forEach(guestbook -> {
-			System.out.println(guestbook);
+		Page<Nado> result = nadoRepository.findAll(builder, pageable); // 5
+		result.stream().forEach(nado -> {
+			System.out.println(nado);
 		});
 	}
 
@@ -68,23 +67,23 @@ class GuestbookApplicationTests {
 	public void testQuery2() {
 		Pageable pageable = PageRequest.of(0,10,Sort.by("gno").descending());
 
-		QGuestbook qGuestbook = QGuestbook.guestbook;
+		QNado qNado = QNado.nado;
 
 		String keyword = "1";
 
 		BooleanBuilder builder = new BooleanBuilder();
 
-		BooleanExpression exTitle = qGuestbook.title.contains(keyword);
+		BooleanExpression exTitle = qNado.title.contains(keyword);
 
-		BooleanExpression exContent = qGuestbook.content.contains(keyword);
+		BooleanExpression exContent = qNado.content.contains(keyword);
 
 		BooleanExpression exAll = exTitle.or(exContent); // 1--------------------------
 		builder.and(exAll); // 2-----------
-		builder.and(qGuestbook.gno.gt(0L)); // 3------------
-		Page<Guestbook> result = guestbookRepository.findAll(builder,pageable);
+		builder.and(qNado.gno.gt(0L)); // 3------------
+		Page<Nado> result = nadoRepository.findAll(builder,pageable);
 
-		result.stream().forEach(guestbook -> {
-			System.out.println(guestbook);
+		result.stream().forEach(nado -> {
+			System.out.println(nado);
 		});
 	}
 }

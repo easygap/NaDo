@@ -1,4 +1,4 @@
-package org.zerock.guestbook.dto;
+package org.zerock.nado.dto;
 
 import lombok.Data;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package org.zerock.guestbook.entity;
+package org.zerock.nado.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Guestbook extends BaseEntity {
+public class Nado extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long gno;

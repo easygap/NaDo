@@ -1,23 +1,23 @@
-package org.zerock.guestbook.service;
+package org.zerock.nado.service;
 
-import org.zerock.guestbook.dto.GuestbookDTO;
-import org.zerock.guestbook.dto.PageRequestDTO;
-import org.zerock.guestbook.dto.PageResultDTO;
-import org.zerock.guestbook.entity.Guestbook;
+import org.zerock.nado.dto.NadoDTO;
+import org.zerock.nado.dto.PageRequestDTO;
+import org.zerock.nado.dto.PageResultDTO;
+import org.zerock.nado.entity.Nado;
 
-public interface GuestbookService {
-    Long register(GuestbookDTO dto);
+public interface NadoService {
+    Long register(NadoDTO dto);
 
-    GuestbookDTO read(Long gno);
+    NadoDTO read(Long gno);
 
     void remove(Long gno);
 
-    void modify(GuestbookDTO dto);
+    void modify(NadoDTO dto);
 
-    PageResultDTO<GuestbookDTO, Guestbook> getList(PageRequestDTO requestDTO);
+    PageResultDTO<NadoDTO, Nado> getList(PageRequestDTO requestDTO);
 
-    default Guestbook dtoToEntity(GuestbookDTO dto) {
-        Guestbook entity = Guestbook.builder()
+    default Nado dtoToEntity(NadoDTO dto) {
+        Nado entity = Nado.builder()
                 .gno(dto.getGno())
                 .title(dto.getTitle())
                 .content(dto.getContent())
@@ -26,10 +26,10 @@ public interface GuestbookService {
         return entity;
     }
 
-    default GuestbookDTO entityToDto(Guestbook entity){
+    default NadoDTO entityToDto(Nado entity){
         System.out.println("entity.getGno() : " + entity.getGno());
 
-        GuestbookDTO dto = GuestbookDTO.builder()
+        NadoDTO dto = NadoDTO.builder()
                 .gno(entity.getGno())
                 .title(entity.getTitle())
                 .content(entity.getContent())
