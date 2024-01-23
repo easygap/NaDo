@@ -1,0 +1,36 @@
+<!--회원가입 페이지-->
+<!DOCTYPE html>
+<!-- Latest compiled and minified CSS -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+
+    <th:block th:fragment="content">
+        <form method="post" action="/auth/join">
+            <div class="container">
+                <h1>회원가입</h1>
+                <div class="form-group">
+                    <label for="email">Id</label>
+                    <input type="text" class="form-control" id="email" name="userId" placeholder="아이디">
+                </div>
+                <div class="form-group">
+                    <label for="pass">password</label>
+                    <input type="password" class="form-control" id="pass" name="userPw"
+                           placeholder="비밀번호">
+                </div>
+                <div class="form-group">
+                    <label for="address">Name</label>
+                    <input type="text" class="form-control" id="address" name="userName" placeholder="이름">
+                </div>
+                <div class="form-group">
+                    <label for="tel">Phone Number</label>
+                    <input type="password" class="form-control" id="tel" name="userPw"
+                           placeholder="전화번호">
+                </div>
+                <button type="submit" class="btn btn-primary">가입 완료</button>
+            </div>
+        </form>
+
+    </th:block>
+</th:block>
+</html>
