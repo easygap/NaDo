@@ -41,13 +41,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="dto : ${result.dtoList}" >
-                <th scope="row">
-                    <a th:href="@{/guestbook/read(gno = ${dto.gno}, page= ${result.page}, type=${pageRequestDTO.type} , keyword = ${pageRequestDTO.keyword})}">
-                    [[${dto.gno}]]
-                    </a>
-                </th>
-                <td>[[${dto.title}]]</td>
+            <tr th:each="dto : ${result.dtoList}">
+                <th scope="row">[[${dto.gno}]]</th>
+                <td><a th:href="@{/nado/ViewCountry-SpecificInformation(gno=${dto.gno}, title=${dto.title})}">[[${dto.title}]]</a></td>
                 <td>[[${dto.writer}]]</td>
                 <td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
             </tr>
@@ -55,24 +51,33 @@
         </table>
         <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item" th:if="${result.prev}">
-                <a class="page-link" th:href="@{/guestbook/list(page=1, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}" tabindex="-1">처 음</a>
+                <a class="page-link"
+                   th:href="@{/guestbook/list(page=1, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}"
+                   tabindex="-1">처 음</a>
             </li>
 
             <li class="page-item " th:if="${result.prev}">
-                <a class="page-link" th:href="@{/guestbook/list(page= ${result.start -1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}">이 전</a>
+                <a class="page-link"
+                   th:href="@{/guestbook/list(page= ${result.start -1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}">이
+                    전</a>
             </li>
 
-            <li th:class=" 'page-item ' + ${result.page == page?'active':''} "th:each="page: ${result.pageList}">
-                <a class="page-link" th:href="@{/guestbook/list(page = ${page}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">
+            <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+                <a class="page-link"
+                   th:href="@{/guestbook/list(page = ${page}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">
                     [[${page}]]
                 </a>
             </li>
 
-            <li class="page-item" th:if= "${result.next}">
-                <a class="page-link" th:href="@{/guestbook/list(page = ${result.end + 1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">다 음</a>
+            <li class="page-item" th:if="${result.next}">
+                <a class="page-link"
+                   th:href="@{/guestbook/list(page = ${result.end + 1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">다
+                    음</a>
             </li>
             <li class="page-item" th:if="${result.next}">
-                <a class="page-link" th:href="@{/guestbook/list(page = ${result.totalPage}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">맨 끝</a>
+                <a class="page-link"
+                   th:href="@{/guestbook/list(page = ${result.totalPage}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">맨
+                    끝</a>
             </li>
         </ul> <!-- 추가되는 태그의 끝 -->
 
