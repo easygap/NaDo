@@ -1,7 +1,8 @@
 package org.zerock.nado.service;
 
 import org.zerock.nado.dto.MemberDTO;
+import org.zerock.nado.entity.Member;
 
 public interface MemberService {
-    String join(MemberDTO memberDTO);
+    Member join(MemberDTO memberDTO);
 }
