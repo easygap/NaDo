@@ -12,13 +12,15 @@ public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
 
     @Override
-    public String join(MemberDTO memberDTO){
+    public Member join(MemberDTO memberDTO){
+
         Member member = Member.builder()
+                .id(memberDTO.getId())
                 .pass(memberDTO.getPass())
                 .name(memberDTO.getName())
                 .tel(memberDTO.getTel())
                 .build();
 
-        return memberRepository.save(member).getId();
+        return memberRepository.save(member);
     }
 }
