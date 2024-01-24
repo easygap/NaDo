@@ -85,4 +85,14 @@ public class NadoController {
 
         return "redirect:/nado/read";
     }
+
+    @GetMapping("/Community")
+    public void Community(){
+
+    }
+
+    @GetMapping("/ViewCountry-SpecificInformation")
+    public void ViewCountrySpecificInformation(Model model) {
+        log.info("ViewCountry-SpecificInformation......................");
+    }
 }
