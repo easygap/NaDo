@@ -36,12 +36,12 @@ class NadoApplicationTests {
 
 	@Test
 	public void updateTest(){
-		Optional<Nado> result = nadoRepository.findById(300L); // 존재하는 번호로 테스트
+		Optional<Nado> result = nadoRepository.findById(599L); // 존재하는 번호로 테스트
 
 		if(result.isPresent()){
 			Nado nado = result.get();
 
-			nado.changeTitle("Changed Title....");
+			nado.changeTitle("일본");
 			nado.changeContent("Changed Content...");
 
 			nadoRepository.save(nado);
