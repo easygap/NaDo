@@ -90,4 +90,9 @@ public class NadoController {
     public void Community(){
 
     }
+
+    @GetMapping("/ViewCountry-SpecificInformation")
+    public void ViewCountrySpecificInformation(Model model) {
+        log.info("ViewCountry-SpecificInformation......................");
+    }
 }
