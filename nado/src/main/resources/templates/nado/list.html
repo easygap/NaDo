@@ -68,7 +68,7 @@
                 </a>
             </li>
 
-            <li class="page-item" th:if="${result.next}">
+            <li class="page-item" th:if= "${result.next}">
                 <a class="page-link" th:href="@{/guestbook/list(page = ${result.end + 1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">다 음</a>
             </li>
             <li class="page-item" th:if="${result.next}">
