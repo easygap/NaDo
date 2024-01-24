@@ -1,9 +1,12 @@
 package org.zerock.nado.service;
 
+import org.zerock.nado.API.ApiExplorer;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
 import org.zerock.nado.dto.PageResultDTO;
 import org.zerock.nado.entity.Nado;
+
+import java.io.IOException;
 
 public interface NadoService {
     Long register(NadoDTO dto);
