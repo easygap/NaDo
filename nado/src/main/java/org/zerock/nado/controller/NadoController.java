@@ -109,7 +109,7 @@ public class NadoController {
 
     @GetMapping("/ViewCountry-SpecificInformation")
     public String ViewCountrySpecificInformation(@RequestParam("gno") Long gno, @RequestParam("title") String title, Model model) {
-        // 게시물 정보를 로깅
+        // 게시물 정보를 로깅s
         System.out.println("게시물 번호 : " + gno);
         System.out.println("게시물 제목 : " + title);
 

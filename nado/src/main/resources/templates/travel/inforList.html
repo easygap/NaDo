@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <h1>InforList Page</h1>
+
+        <form action="/travel/infor" method="post">
+            <label for="searchQuery">Search:</label>
+            <input type="text" id="searchQuery" name="searchInfor" th:value="${countryName}">
+            <button type="submit">Search</button>
+        </form>
+
+        <h3>Information</h3>
+        <p th:text="${countryInfor}"></p>
+    </th:block>
+</th:block>
+</html>
