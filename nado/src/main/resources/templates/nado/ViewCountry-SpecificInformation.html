@@ -7,6 +7,9 @@
 <body>
 <!-- 대사관 정보 표시 -->
 <h2 th:text="${title}"></h2>
+<h3 th:text="${SecurityEnvironment}"></h3>
+<h3>지역별 위험표시 지도 다운로드 URL: <a th:href="${SptravelWarningMap}" th:text="다운로드"></a></h3>
+
 <div th:each="embassyInfo : ${embassyList}">
     <p>대사관 이름: <span th:text="${embassyInfo.embassyName}"></span></p>
     <p>대사관 주소: <span th:text="${embassyInfo.embassyAddress}"></span></p>

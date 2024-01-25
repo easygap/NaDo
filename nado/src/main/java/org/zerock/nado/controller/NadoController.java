@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.nado.API.ApiExplorer;
 import org.zerock.nado.API.EmbassyInfo;
+import org.zerock.nado.API.SecurityEnvironment;
+import org.zerock.nado.API.SptravelWarningList;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
 import org.zerock.nado.service.NadoService;
@@ -23,6 +25,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/nado")
@@ -113,6 +116,8 @@ public class NadoController {
             try {
                 // API 호출 및 응답 가져오기 (리스트로 변경된 부분)
                 List<EmbassyInfo> embassyList = ApiExplorer.getEmbassyList(title);
+                String SecurityEnvironment = ApiExplorer.getSecurityEnvironment(title);
+                List<SptravelWarningList> SptravelWarningMap = ApiExplorer.getSptravelWarningMap(title);
 
                 if (!embassyList.isEmpty()) {
                     // 첫 번째 대사관 정보만 사용하도록 예시로 설정
@@ -120,6 +125,9 @@ public class NadoController {
 
                     // 모델에 대사관 정보 추가
                     model.addAttribute("embassyList", embassyList);
+                    model.addAttribute("SecurityEnvironment", SecurityEnvironment);
+                    model.addAttribute("SptravelWarningMap", SptravelWarningMap.get(0));
+                    System.out.println("URL : " + SptravelWarningMap.get(0));
                 } else {
                     // 대사관 정보가 없을 경우 처리
                     System.out.println("대사관 정보가 없습니다.");
