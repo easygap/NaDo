@@ -6,7 +6,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
-        <form method="post" th:action="@{/auth/joinAccess}" >
+        <form method="post" th:action="@{/joinAccess}" >
             <div class="container">
                 <h1>회원가입</h1>
                 <div class="form-group">
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="이름">
-                </div>nae,
+                </div>
                 <div class="form-group">
                     <label for="tel">Phone Number</label>
                     <input type="number" class="form-control" id="tel" name="tel"
