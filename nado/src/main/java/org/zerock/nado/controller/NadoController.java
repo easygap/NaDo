@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
+@ResponseBody
 @RequestMapping("/nado")
 @Log4j2
 @RequiredArgsConstructor // 자동 주입을 위한 Annotation
