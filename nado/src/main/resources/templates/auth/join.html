@@ -6,7 +6,7 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
     <th:block th:fragment="content">
-        <form method="post" action="/auth/joinAccess">
+        <form method="post" th:action="@{/auth/joinAccess}" >
             <div class="container">
                 <h1>회원가입</h1>
                 <div class="form-group">
