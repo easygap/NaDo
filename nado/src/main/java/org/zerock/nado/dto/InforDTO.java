@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class DangerDTO {
+public class InforDTO {
     private Long gno;
-    private String country, Danger;
+    private String title, Infor;
 }
