@@ -49,8 +49,9 @@
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active" style="margin-right: 0.5em;">
+
                             <!-- SVG 이미지를 클릭 가능한 링크로 감싸기 -->
-                            <a th:href="@{/nado/login}" class="nav-link">
+                            <a name="loginModalButton" class="nav-link">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                      class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -77,18 +78,68 @@
             <div class="container-fluid">
                 <th:block th:replace="${content}"></th:block>
             </div>
+
         </div>
         <!-- /#page-content-wrapper -->
 
     </div>
     <!-- /#wrapper -->
 
+    <!-- 로그인 모달창 -->
+    <div class="modal fade" id="loginModal" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- 로그인 head -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">로그인</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- 로그인 body -->
+                <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+
+                    <!-- 모달로 띄우고자 하는 내용 -->
+                    <form method="post" action="/auth/login" class="was-validated" style="width: 100%;">
+                        <div class="form-group" style="width: 100%;">
+                            <label for="memberId">아이디</label>
+                            <input type="text" class="form-control" id="memberId" placeholder="아이디를 입력하세요" name="memberId" required>
+                            <div class="valid-feedback">확인</div>
+                            <div class="invalid-feedback">아이디를 입력해주세요</div>
+                        </div>
+                        <div class="form-group" style="width: 100%;">
+                            <label for="memberPw">비밀번호</label>
+                            <input type="password" class="form-control" id="memberPw" placeholder="비밀번호를 입력하세요" name="memberPw" required>
+                            <div class="valid-feedback">확인</div>
+                            <div class="invalid-feedback">비밀번호를 입력해주세요</div>
+                        </div>
+
+                        <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px; width: 100%;">
+                            <button type="submit" class="btn btn-primary" style="flex: 1;">로그인</button>
+                            <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal" style="flex: 1;">닫기</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Menu Toggle Script -->
     <script>
-        $("#menu-toggle").click(function(e) {
-          e.preventDefault();
-          $("#wrapper").toggleClass("toggled");
+        $(document).ready(function () {
+            // loginModalButton 클릭 시 모달 표시
+            $('[name="loginModalButton"]').on('click', function () {
+                $('#loginModal').modal('show');
+            });
+
+            // close-modal 클래스를 가진 버튼 클릭 시 모달 닫기
+            $('.btn-close').on('click', function () {
+                $('#loginModal').modal('hide');
+            });
         });
+
     </script>
 
     </body>

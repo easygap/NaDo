@@ -20,7 +20,7 @@ public class Nado extends BaseEntity {
     @Column(length = 1500, nullable = false)
     private String content;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 20, nullable = false)
     private String writer;
 
     public void changeTitle(String title){
