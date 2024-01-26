@@ -11,11 +11,9 @@ import org.zerock.nado.service.MemberService;
 
 @Controller /** 해당 클래스는 컨트롤러임을 알림, Bean으로 등록 */
 @RequiredArgsConstructor /** 추후 의존관계 관련하여 필요 */
-@RequestMapping("/auth") /** 주소창 기본 값 */
 public class MemberController {
 
     private final MemberService memberService;
-
 
     @GetMapping("/join")
     public String createMember() {
@@ -24,7 +22,10 @@ public class MemberController {
 
     @PostMapping("/joinAccess")
     public String createMember(@ModelAttribute MemberDTO memberDTO){
-        memberService.join(memberDTO);
-        return "auth/join";
+
+        System.out.println(memberDTO.getName());
+        memberService.createMember(memberDTO);
+
+        return "ok";
     }
 }

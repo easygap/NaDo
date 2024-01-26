@@ -18,17 +18,18 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@ResponseBody
 @RequestMapping("/nado")
 @Log4j2
 @RequiredArgsConstructor // 자동 주입을 위한 Annotation
 public class NadoController {
     private final NadoService service; // final로 선언
 
+    /*
     @GetMapping("/")
     public String index() {
-        return "redirect:/nado/list";
+        return "redirect:/login";
     }
+     */
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
@@ -90,11 +91,6 @@ public class NadoController {
         redirectAttributes.addAttribute("gno", dto.getGno());
 
         return "redirect:/nado/read";
-    }
-
-    @GetMapping("/Community")
-    public void Community() {
-
     }
 
     @GetMapping("/ViewCountry-SpecificInformation")

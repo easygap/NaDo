@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Data               /** Getter Setter */
 @Builder            /** DTO -> Entity화 */
@@ -21,13 +18,16 @@ public class Member {
     @Column(length = 20,unique = true, nullable = false)
     private String id;
 
-    @Column(length = 20,nullable = false)
+    @Column(nullable = false)
     private String pass;
 
     @Column(length = 20, nullable = false)
     private String name;
 
-    @Column(length = 14, nullable = false, unique = true)
+    @Column(length = 14, nullable = false)
     private String tel;
+
+    @Column(length = 14, nullable = false)
+    private String role;
 
 }
