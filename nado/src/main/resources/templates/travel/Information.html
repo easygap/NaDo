@@ -3,7 +3,11 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1>Information Page</h1>
-        <p th:text="${countryInfor}"></p>
+        <form action="/travel/infor" method="post">
+            <label for="searchQuery">Search:</label>
+            <input type="text" id="searchQuery" name="searchInfor" th:value="${countryName}">
+            <button type="submit">Search</button>
+        </form>
     </th:block>
 </th:block>
 </html>

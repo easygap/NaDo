@@ -18,6 +18,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 @Controller
 @RequiredArgsConstructor
 @Log4j2
@@ -26,7 +29,7 @@ public class InformationController {
 
     @GetMapping("/infor")
     public String InformationPage(Model model) {
-        return "travel/inforList";
+        return "travel/information";
     }
 
     @PostMapping("/infor")
@@ -46,15 +49,31 @@ public class InformationController {
     @GetMapping("/infor/api")
     @ResponseBody
     public String getInformationApi(String searchInfor) throws IOException {
-        log.info("API Information request-------------------");
+        log.info("API 정보 요청-------------------");
 
         // API에서 정보를 가져오는 메서드 호출 (예: ApiInfor.getEmbassyList)
         String countryInfor = ApiInfor.getEmbassyList(searchInfor);
+      
+        log.info("받아온 API 정보: {}", countryInfor);
 
-        System.out.println(countryInfor);
+        // 받아온 XML 데이터를 Jsoup을 사용하여 파싱
+        Document document = Jsoup.parse(countryInfor);
 
-        log.info("Received API Information for: {}", searchInfor);
+        // 기본 정보 추출
+        String basicInfo = document.select("item basic").text();
 
-        return countryInfor;
+        // <br> 태그를 기준으로 문자열을 나누어 리스트에 담기
+        String[] infoArray = basicInfo.split("<br>|<div>");
+
+        StringBuilder result = new StringBuilder();
+
+        // 나눈 정보를 출력 또는 활용하기
+        for (String info : infoArray) {
+            String trimmedInfo = info.trim();
+            if (!trimmedInfo.isEmpty()) {
+                result.append(trimmedInfo).append("\n");
+            }
+        }
+        return result.toString();
     }
 }
