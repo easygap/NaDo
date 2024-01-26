@@ -1,6 +1,5 @@
 package org.zerock.nado.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,9 +15,7 @@ import org.zerock.nado.jwt.JWTUtil;
 import org.zerock.nado.jwt.LoginFilter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
-
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
 
@@ -75,3 +72,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
