@@ -52,12 +52,13 @@
             });
         });
 
+        /**
         // 로그인 기능
         function login() {
             var id = $('#memberId').val();
             var pass = $('#memberPw').val();
             $.ajax({
-                url : '/login',
+                url : '/loginAccess',
                 type : "post",
                 data : {
                     "id" : id,
@@ -70,7 +71,7 @@
                     } else {
                         if(data == "success") {
                             alert('로그인되었습니다.');
-                            location.href = "/main";
+                            location.href = "/nado/list";
                         } else if (data == "withdraw") {
                             $('.loginFail').html("로그인이 불가한 탈퇴회원입니다.").css('color', 'red');
                         }
@@ -78,6 +79,7 @@
                 }
             });
         }
+        **/
     </script>
 </th:block>
 </html>
