@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.zerock.nado.dto.CustomUserDetails;
 
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -44,7 +45,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     // 로그인 성공시 실행하는 메소드 (여기서 JWT를 발급하면 됨)
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication){
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
 
         CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getPrincipal();
 
@@ -59,6 +60,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = jwtUtil.createJwt(username, role, 60*60*10L);
 
         response.addHeader("Authorization", "Bearer " + token);
+        response.sendRedirect("/nado/list");
     }
 
     // 로그인 실패시 실행하는 메소드
