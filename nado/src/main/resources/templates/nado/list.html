@@ -6,12 +6,12 @@
     <th:block th:fragment="content">
         <h1 class="mt-4">NaDo List Page
             <span>
-                <a th:href="@{/guestbook/register}">
+                <a th:href="@{/nado/register}">
                     <button type="button" class="btn btn-outline-primary">글 쓰 기</button>
                 </a>
             </span>
         </h1>
-        <form action="/guestbook/list" method="get" id="searchForm">
+        <form action="/nado/list" method="get" id="searchForm">
             <div class="input-group">
                 <input type="hidden" name="page" value="1">
                 <div class="input-group-prepend">

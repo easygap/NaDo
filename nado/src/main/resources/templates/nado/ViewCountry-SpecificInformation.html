@@ -5,20 +5,21 @@
     <title>Title</title>
 </head>
 <body>
+<input th:type="text">
+
 <!-- 대사관 정보 표시 -->
 <h2 th:text="${title}"></h2>
 <h3 th:text="${SecurityEnvironment}"></h3>
 <h3>지역별 위험표시 지도 다운로드 URL: <a th:href="${SptravelWarningMap}" th:text="다운로드"></a></h3>
 
-<div th:each="embassyInfo : ${embassyList}">
-    <p>대사관 이름: <span th:text="${embassyInfo.embassyName}"></span></p>
-    <p>대사관 주소: <span th:text="${embassyInfo.embassyAddress}"></span></p>
-    <p>대사관 전화번호: <span th:text="${embassyInfo.embassyPhoneNumber}"></span></p>
-    <p>대사관 긴급 전화번호: <span th:text="${embassyInfo.embassyUrgencyNumber}"></span></p>
-    <p th:if="${embassyInfo.embassyFreeNumber != null and !embassyInfo.embassyFreeNumber.equals('null')}">대사관 무료 전화번호: <span th:text="${embassyInfo.embassyFreeNumber}"></span></p>
-    <p>대사관 위도: <span th:text="${embassyInfo.embassyLat}"></span></p>
-    <p>대사관 경도: <span th:text="${embassyInfo.embassyLng}"></span></p>
-    <br>
+<div th:each="embassyInfoDTO : ${embassyList}">
+    <p>대사관 이름: <span th:text="${embassyInfoDTO.embassyName}"></span></p>
+    <p>대사관 주소: <span th:text="${embassyInfoDTO.embassyAddress}"></span></p>
+    <p>대사관 전화번호: <span th:text="${embassyInfoDTO.embassyPhoneNumber}"></span></p>
+    <p>대사관 긴급 전화번호: <span th:text="${embassyInfoDTO.embassyUrgencyNumber}"></span></p>
+    <p th:if="${embassyInfoDTO.embassyFreeNumber != null and !embassyInfoDTO.embassyFreeNumber.equals('null')}">대사관 무료 전화번호: <span th:text="${embassyInfoDTO.embassyFreeNumber}"></span></p>
+    <p>대사관 위도: <span th:text="${embassyInfoDTO.embassyLat}"></span></p>
+    <p>대사관 경도: <span th:text="${embassyInfoDTO.embassyLng}"></span></p>
     <br>
     <br>
 </div>
