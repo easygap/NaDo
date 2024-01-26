@@ -3,15 +3,48 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1>InforList Page</h1>
-
         <form action="/travel/infor" method="post">
             <label for="searchQuery">Search:</label>
             <input type="text" id="searchQuery" name="searchInfor" th:value="${countryName}">
             <button type="submit">Search</button>
         </form>
 
-        <h3>Information</h3>
-        <p th:text="${countryInfor}"></p>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">국가 / 나라명</th>
+                <th scope="col">기본 정보</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+                <td>[[${countryName}]]</td>
+                <td><a href="javascript:loadDoc()">기본정보</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-striped">
+            <tbody id="countryInformation">
+            <tr>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
     </th:block>
 </th:block>
+
+<script>
+    function loadDoc(){
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+            document.getElementById("countryInformation").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "/travel/infor/api?searchInfor=${countryName}");
+        xhttp.send();
+    }
+</script>
 </html>
