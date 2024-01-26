@@ -36,7 +36,7 @@ class NadoApplicationTests {
 
 	@Test
 	public void updateTest(){
-		Optional<Nado> result = nadoRepository.findById(592L); // 존재하는 번호로 테스트
+		Optional<Nado> result = nadoRepository.findById(300L); // 존재하는 번호로 테스트
 
 		if(result.isPresent()){
 			Nado nado = result.get();

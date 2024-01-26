@@ -16,7 +16,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 @Controller
-@ResponseBody
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class MainController {
