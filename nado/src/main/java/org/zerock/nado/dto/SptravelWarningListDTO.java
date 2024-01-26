@@ -24,4 +24,8 @@ public class SptravelWarningListDTO {
             return "지역별 위험표시 지도 다운로드 URL이 없습니다.";
         }
     }
+
+    public String getUrl() {
+            return DangMapDownloadUrl.get(0);
+        }
 }
