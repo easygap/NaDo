@@ -11,6 +11,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.core.AuthenticationException;
 import org.zerock.nado.dto.CustomUserDetails;
 
+
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -31,6 +32,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 클라이언트 요청에서 username, password  추출
         String username = obtainUsername(request);
         String password = obtainPassword(request);
+
+        System.out.println(username);
 
         // 스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
