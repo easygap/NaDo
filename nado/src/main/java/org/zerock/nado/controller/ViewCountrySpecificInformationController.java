@@ -6,14 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.nado.API.ApiExplorer;
-import org.zerock.nado.API.ApiInfor;
 import org.zerock.nado.dto.EmbassyInfoDTO;
 import org.zerock.nado.dto.SptravelWarningListDTO;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/nado")
@@ -66,39 +63,35 @@ public class ViewCountrySpecificInformationController {
         return "/nado/ViewCountry-SpecificInformation";
     }
 
-    @GetMapping("/ViewCountry-SpecificInformation2")
+    @GetMapping("/infor/api")
     @ResponseBody
-    public Map<String, Object> viewCountrySpecificInformation(@RequestParam("title") String title) {
-        Map<String, Object> response = new HashMap<>();
+    public String getInformationApi(String searchInfor) throws IOException {
+        log.info("API Information request-------------------");
 
-        if (title != null) {
-            try {
-                List<EmbassyInfoDTO> embassyList = ApiExplorer.getEmbassyList(title);
-                String SecurityEnvironment = ApiExplorer.getSecurityEnvironment(title);
-                List<SptravelWarningListDTO> SptravelWarningMap = ApiExplorer.getSptravelWarningMap(title);
+        // API에서 정보를 가져오는 메서드 호출 (예: ApiInfor.getEmbassyList)
+        List<EmbassyInfoDTO> embassyList = ApiExplorer.getEmbassyList(searchInfor);
+        String countryInfor = ApiExplorer.getSecurityEnvironment(searchInfor);
+        List<SptravelWarningListDTO> SptravelWarningMap = ApiExplorer.getSptravelWarningMap(searchInfor);
 
-                if (!embassyList.isEmpty()) {
-                    response.put("embassyList", embassyList);
-                    response.put("securityEnvironmentDTO", SecurityEnvironment);
-                    response.put("sptravelWarningMap", SptravelWarningMap.get(0));
-                    response.put("success", true);
+        log.info("Received API Information for: {}", searchInfor);
 
-                    System.out.println("1 " + embassyList);
-                    System.out.println("2 " + SecurityEnvironment);
-                    System.out.println("3 " + SptravelWarningMap.get(0));
-                } else {
-                    response.put("message", "대사관 정보가 없습니다.");
-                    response.put("success", false);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                response.put("message", "API 호출 중 예외 발생");
-                response.put("success", false);
-            }
-        } else {
-            response.put("message", "ISO 코드를 찾을 수 없습니다.");
-            response.put("success", false);
+        String countryInfor2 = "<h1>" + countryInfor + "</h1>";
+        // SptravelWarningListDTO 객체의 getUrl() 메서드를 사용하여 URL을 가져와서 링크 생성
+        String Download = "<h2><a href=\"" + SptravelWarningMap.get(0).getUrl() + "\">지역별 위험구역 지도 다운로드</a></h2>";
+        // embassyList를 HTML 문자열로 변환
+        StringBuilder embassyListHtml = new StringBuilder("<ul>");
+        for (EmbassyInfoDTO embassy : embassyList) {
+            embassyListHtml.append("<li>").append("이름 : " + embassy.getName()).append("</li>");
+            embassyListHtml.append("<li>").append("주소 : " + embassy.getAddress()).append("</li>");
+            embassyListHtml.append("<li>").append("번호 : " + embassy.getPhoneNumber()).append("</li>");
+            embassyListHtml.append("<li>").append("긴급번호 : " + embassy.getUrgencyNumber()).append("</li>");
+            embassyListHtml.append("<li>").append("위도 : " + embassy.getLat()).append("</li>");
+            embassyListHtml.append("<li>").append("경도 : " + embassy.getLng()).append("</li>");
+            embassyListHtml.append("<br>");
+            embassyListHtml.append("<br>");
         }
-        return response;
+        embassyListHtml.append("</ul>");
+
+        return countryInfor2 + "<br>" + Download + "<br>" + embassyListHtml.toString();
     }
 }
