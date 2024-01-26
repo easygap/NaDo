@@ -36,6 +36,8 @@
 
     </div>
 
+    <!-- 비동기 통신을 위한 JQuery 사용 -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- Menu Toggle Script -->
     <script>
         $(document).ready(function () {
@@ -49,6 +51,33 @@
                 $('#loginModal').modal('hide');
             });
         });
+
+        // 로그인 기능
+        function login() {
+            var id = $('#memberId').val();
+            var pass = $('#memberPw').val();
+            $.ajax({
+                url : '/login',
+                type : "post",
+                data : {
+                    "id" : id,
+                    "pass" : pass
+                },
+                dataType : 'text',
+                success : function(data) {
+                    if (data == "fail") {
+                        $('.loginFail').html("아이디 또는 패스워드가 틀렸습니다.").css('color', 'red');
+                    } else {
+                        if(data == "success") {
+                            alert('로그인되었습니다.');
+                            location.href = "/main";
+                        } else if (data == "withdraw") {
+                            $('.loginFail').html("로그인이 불가한 탈퇴회원입니다.").css('color', 'red');
+                        }
+                    }
+                }
+            });
+        }
     </script>
 </th:block>
 </html>
