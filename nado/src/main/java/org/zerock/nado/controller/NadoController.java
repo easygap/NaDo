@@ -24,10 +24,12 @@ import java.util.List;
 public class NadoController {
     private final NadoService service; // final로 선언
 
+    /*
     @GetMapping("/")
     public String index() {
-        return "redirect:/nado/list";
+        return "redirect:/login";
     }
+     */
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {

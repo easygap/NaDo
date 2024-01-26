@@ -7,8 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.nado.API.ApiInfor;
 
 import java.io.IOException;
@@ -29,14 +28,25 @@ public class InformationController {
         log.info("Information post------------------");
 
         String countryInfor = ApiInfor.getEmbassyList(searchInfor);
-        String countryName = searchInfor;
 
         System.out.println("countryName은??!?!?! 바로바로?!?!?! : " + searchInfor);
-        System.out.println("countryInfor는??!?!?! 바로바로?!?!?! : " + countryInfor);
 
         model.addAttribute("countryInfor", countryInfor);
-        model.addAttribute("countryName", countryName);
+        model.addAttribute("countryName", searchInfor);
 
         return "travel/inforList";
+    }
+
+    @GetMapping("/infor/api")
+    @ResponseBody
+    public String getInformationApi(String searchInfor) throws IOException {
+        log.info("API Information request-------------------");
+
+        // API에서 정보를 가져오는 메서드 호출 (예: ApiInfor.getEmbassyList)
+        String countryInfor = ApiInfor.getEmbassyList(searchInfor);
+
+        log.info("Received API Information for: {}", searchInfor);
+
+        return countryInfor;
     }
 }

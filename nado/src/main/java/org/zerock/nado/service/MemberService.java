@@ -4,5 +4,6 @@ import org.zerock.nado.dto.MemberDTO;
 import org.zerock.nado.entity.Member;
 
 public interface MemberService {
-    Member join(MemberDTO memberDTO);
+    void createMember(MemberDTO memberDTO);
+    // Member join(MemberDTO memberDTO);
 }
