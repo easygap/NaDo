@@ -1,4 +1,4 @@
-package org.zerock.nado.API;
+package org.zerock.nado.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SptravelWarningList {
+public class SptravelWarningListDTO {
     @JsonProperty("dang_map_download_url")
     private List <String> DangMapDownloadUrl;
 
