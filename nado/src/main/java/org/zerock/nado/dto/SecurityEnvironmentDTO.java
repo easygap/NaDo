@@ -1,4 +1,4 @@
-package org.zerock.nado.API;
+package org.zerock.nado.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SecurityEnvironment {
+public class SecurityEnvironmentDTO {
 
     @JsonProperty("current_travel_alarm")
     private String currentTravelAlarm;

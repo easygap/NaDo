@@ -1,4 +1,4 @@
-package org.zerock.nado.API;
+package org.zerock.nado.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class EmbassyInfo {
+public class EmbassyInfoDTO {
     @JsonProperty("embassy_kor_nm")
     private String embassyName;
 

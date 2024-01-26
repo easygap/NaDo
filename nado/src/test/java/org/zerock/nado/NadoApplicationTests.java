@@ -22,7 +22,7 @@ class NadoApplicationTests {
 	@Autowired
 	private NadoRepository nadoRepository;
 
-	@Test
+	/* @Test
 	public void insertDummies(){
 		IntStream.rangeClosed(1,300).forEach(i -> {
 			Nado nado = Nado.builder()
@@ -32,7 +32,7 @@ class NadoApplicationTests {
 					.build();
 			System.out.println(nadoRepository.save(nado));
 		});
-	}
+	}*/
 
 	@Test
 	public void updateTest(){
