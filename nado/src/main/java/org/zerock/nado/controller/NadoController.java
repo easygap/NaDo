@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@ResponseBody
 @RequestMapping("/nado")
 @Log4j2
 @RequiredArgsConstructor // 자동 주입을 위한 Annotation
@@ -90,54 +89,5 @@ public class NadoController {
         redirectAttributes.addAttribute("gno", dto.getGno());
 
         return "redirect:/nado/read";
-    }
-
-    @GetMapping("/Community")
-    public void Community() {
-
-    }
-
-    @GetMapping("/ViewCountry-SpecificInformation")
-    public String ViewCountrySpecificInformation(@RequestParam("gno") Long gno, @RequestParam("title") String title, Model model) {
-        // 게시물 정보를 로깅s
-        System.out.println("게시물 번호 : " + gno);
-        System.out.println("게시물 제목 : " + title);
-
-        if (title != null) {
-            try {
-                // API 호출 및 응답 가져오기 (리스트로 변경된 부분)
-                List<EmbassyInfoDTO> embassyList = ApiExplorer.getEmbassyList(title);
-                String SecurityEnvironment = ApiExplorer.getSecurityEnvironment(title);
-                List<SptravelWarningListDTO> SptravelWarningMap = ApiExplorer.getSptravelWarningMap(title);
-
-                if (!embassyList.isEmpty()) {
-                    // 첫 번째 대사관 정보만 사용하도록 예시로 설정
-                    EmbassyInfoDTO embassyInfoDTO = embassyList.get(0);
-
-                    // 모델에 대사관 정보 추가
-                    model.addAttribute("embassyList", embassyList);
-                    model.addAttribute("SecurityEnvironmentDTO", SecurityEnvironment);
-                    model.addAttribute("SptravelWarningMap", SptravelWarningMap.get(0));
-                    System.out.println("URL : " + SptravelWarningMap.get(0));
-                } else {
-                    // 대사관 정보가 없을 경우 처리
-                    System.out.println("대사관 정보가 없습니다.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                // 예외 처리는 필요에 따라 수정하세요.
-                System.out.println("API 호출 중 예외 발생");
-            }
-        } else {
-            // ISO 코드를 찾을 수 없는 경우 처리
-            System.out.println("ISO 코드를 찾을 수 없습니다.");
-        }
-
-        // 모델에 "title" 속성 추가
-        model.addAttribute("title", title);
-        model.addAttribute("gno", gno);
-
-        // 뷰의 이름을 반환 (여기서는 "ViewCountry-SpecificInformation.html"이라고 가정)
-        return "/nado/ViewCountry-SpecificInformation";
     }
 }
