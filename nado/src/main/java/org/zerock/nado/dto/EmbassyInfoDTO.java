@@ -30,4 +30,27 @@ public class EmbassyInfoDTO {
     @JsonProperty("embassy_lng")
     private String embassyLng;
 
+    public String getName() {
+        return embassyName;
+    }
+
+    public String getAddress() {
+        return embassyAddress;
+    }
+
+    public String getPhoneNumber() {
+        return embassyPhoneNumber;
+    }
+
+    public String getUrgencyNumber() {
+        return embassyUrgencyNumber;
+    }
+
+    public String getLat() {
+        return embassyLat;
+    }
+
+    public String getLng() {
+        return embassyLng;
+    }
 }

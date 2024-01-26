@@ -20,7 +20,7 @@
             <tbody>
             <tr>
                 <td></td>
-                <td>[[${countryName}]]</td>
+                <td><a href="javascript:loadDoc2()">[[${countryName}]]</a></td>
                 <td><a href="javascript:loadDoc()">기본정보</a></td>
             </tr>
             </tbody>
@@ -55,6 +55,21 @@
         };
         // 동적으로 얻은 국가 이름 사용
         xhttp.open("GET", "/travel/infor/api?searchInfor=" + encodeURIComponent(countryName));
+        xhttp.send();
+    }
+
+    function loadDoc2(){
+        // HTML에서 데이터 속성을 사용하여 값을 가져오기
+        const countryName = document.getElementById("searchQuery").value;
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+            document.getElementById("countryInformation").innerHTML = this.responseText;
+            }
+        };
+        // 동적으로 얻은 국가 이름 사용
+        xhttp.open("GET", "/nado/infor/api?searchInfor=" + encodeURIComponent(countryName));
         xhttp.send();
     }
 </script>
