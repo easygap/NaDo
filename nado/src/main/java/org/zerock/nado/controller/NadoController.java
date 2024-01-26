@@ -1,6 +1,5 @@
 package org.zerock.nado.controller;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -8,24 +7,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.nado.API.ApiExplorer;
-import org.zerock.nado.API.EmbassyInfo;
-import org.zerock.nado.API.SecurityEnvironment;
-import org.zerock.nado.API.SptravelWarningList;
+import org.zerock.nado.dto.EmbassyInfoDTO;
+import org.zerock.nado.dto.SptravelWarningListDTO;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
 import org.zerock.nado.service.NadoService;
 
 //API
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/nado")
@@ -34,10 +24,12 @@ import java.util.stream.Collectors;
 public class NadoController {
     private final NadoService service; // final로 선언
 
+    /*
     @GetMapping("/")
     public String index() {
-        return "redirect:/nado/list";
+        return "redirect:/login";
     }
+     */
 
     @GetMapping("/list")
     public void list(PageRequestDTO pageRequestDTO, Model model) {
@@ -110,17 +102,17 @@ public class NadoController {
         if (title != null) {
             try {
                 // API 호출 및 응답 가져오기 (리스트로 변경된 부분)
-                List<EmbassyInfo> embassyList = ApiExplorer.getEmbassyList(title);
+                List<EmbassyInfoDTO> embassyList = ApiExplorer.getEmbassyList(title);
                 String SecurityEnvironment = ApiExplorer.getSecurityEnvironment(title);
-                List<SptravelWarningList> SptravelWarningMap = ApiExplorer.getSptravelWarningMap(title);
+                List<SptravelWarningListDTO> SptravelWarningMap = ApiExplorer.getSptravelWarningMap(title);
 
                 if (!embassyList.isEmpty()) {
                     // 첫 번째 대사관 정보만 사용하도록 예시로 설정
-                    EmbassyInfo embassyInfo = embassyList.get(0);
+                    EmbassyInfoDTO embassyInfoDTO = embassyList.get(0);
 
                     // 모델에 대사관 정보 추가
                     model.addAttribute("embassyList", embassyList);
-                    model.addAttribute("SecurityEnvironment", SecurityEnvironment);
+                    model.addAttribute("SecurityEnvironmentDTO", SecurityEnvironment);
                     model.addAttribute("SptravelWarningMap", SptravelWarningMap.get(0));
                     System.out.println("URL : " + SptravelWarningMap.get(0));
                 } else {
