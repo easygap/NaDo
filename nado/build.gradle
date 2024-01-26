@@ -42,6 +42,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
+	// https://mvnrepository.com/artifact/org.jsoup/jsoup
+	implementation group: 'org.jsoup', name: 'jsoup', version: '1.17.2'
+
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
