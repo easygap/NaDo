@@ -40,7 +40,7 @@ public class InformationController {
     @GetMapping("/infor/api")
     @ResponseBody
     public String getInformationApi(String searchInfor) throws IOException {
-        log.info("API Information request------------------");
+        log.info("API Information request-------------------");
 
         // API에서 정보를 가져오는 메서드 호출 (예: ApiInfor.getEmbassyList)
         String countryInfor = ApiInfor.getEmbassyList(searchInfor);
