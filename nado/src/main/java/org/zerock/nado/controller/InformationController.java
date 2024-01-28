@@ -2,7 +2,6 @@ package org.zerock.nado.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.jsoup.Jsoup;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.zerock.nado.API.ApiInfor;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
@@ -53,7 +47,7 @@ public class InformationController {
 
         // API에서 정보를 가져오는 메서드 호출 (예: ApiInfor.getEmbassyList)
         String countryInfor = ApiInfor.getEmbassyList(searchInfor);
-      
+
         log.info("받아온 API 정보: {}", countryInfor);
 
         // 받아온 XML 데이터를 Jsoup을 사용하여 파싱
@@ -63,7 +57,7 @@ public class InformationController {
         String basicInfo = document.select("item basic").text();
 
         // <br> 태그를 기준으로 문자열을 나누어 리스트에 담기
-        String[] infoArray = basicInfo.split("<br>|<div>");
+        String[] infoArray = basicInfo.split("<div>");
 
         StringBuilder result = new StringBuilder();
 
@@ -71,7 +65,7 @@ public class InformationController {
         for (String info : infoArray) {
             String trimmedInfo = info.trim();
             if (!trimmedInfo.isEmpty()) {
-                result.append(trimmedInfo).append("\n");
+                result.append(trimmedInfo);
             }
         }
         return result.toString();
