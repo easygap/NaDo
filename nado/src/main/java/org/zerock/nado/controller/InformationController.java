@@ -68,7 +68,6 @@ public class InformationController {
                 result.append(trimmedInfo);
             }
         }
-
         return result.toString();
     }
 }
