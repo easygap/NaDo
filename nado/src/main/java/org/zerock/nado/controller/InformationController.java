@@ -57,7 +57,7 @@ public class InformationController {
         String basicInfo = document.select("item basic").text();
 
         // <br> 태그를 기준으로 문자열을 나누어 리스트에 담기
-        String[] infoArray = basicInfo.split("<br>|<div>");
+        String[] infoArray = basicInfo.split("<div>");
 
         StringBuilder result = new StringBuilder();
 
@@ -65,7 +65,7 @@ public class InformationController {
         for (String info : infoArray) {
             String trimmedInfo = info.trim();
             if (!trimmedInfo.isEmpty()) {
-                result.append(trimmedInfo).append("\n");
+                result.append(trimmedInfo);
             }
         }
 
