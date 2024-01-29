@@ -3,22 +3,28 @@
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1>Information Page</h1>
-        <form action="/travel/infor" method="post">
-            <label for="searchQuery">Search:</label>
-            <input type="text" id="searchQuery" name="searchInfor" th:value="${countryName}">
-            <button type="submit">Search</button>
+        <form action="/travel/infor" method="post" id="searchForm">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label for="searchQuery" style="width:4.5em; font-weight:bold; font-size:20px;">Search:</label>
+                </div>
+                <input type="text" class="form-control" id="searchQuery" name="searchInfor" th:value="${countryName}">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary btn-search" style="width:15em" type="submit">Search</button>
+                </div>
+            </div>
         </form>
 
         <table class="table table-striped">
             <thead>
-            <tr>
+            <tr class="table-secondary">
                 <th scope="col"></th>
                 <th scope="col">국가 / 나라명</th>
                 <th scope="col">기본 정보</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="table-light">
                 <td></td>
                 <td><a href="javascript:loadDoc2()">[[${countryName}]]</a></td>
                 <td><a href="javascript:loadDoc()">기본정보</a></td>
@@ -33,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="table-light">
                 <td></td>
                 <td id="countryInformation"></td>
             </tr>
