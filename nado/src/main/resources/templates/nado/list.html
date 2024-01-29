@@ -41,7 +41,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="dto : ${result.dtoList}">
+            <tr th:each="dto : ${result.dtoList}" class="table-light">
                 <th scope="row">[[${dto.gno}]]</th>
                 <td><a th:href="@{/nado/read(gno=${dto.gno}, title=${dto.title})}">[[${dto.title}]]</a></td>
                 <td>[[${dto.writer}]]</td>

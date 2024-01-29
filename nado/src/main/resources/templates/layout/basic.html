@@ -22,26 +22,31 @@
 
     </head>
 
-    <body>
+    <body style="background-color: #DBE2EF !important;">
 
     <div class="d-flex" id="wrapper">
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light bg-primary border-bottom" style="background-color: #112D4E !important;">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
+                            <a th:href="@{/nado/main}">
+                                <img src="\images\logo2.png" style="width:10em" alt="로고">
+                            </a>
+                        </li>
+                        <li class="nav-item active">
                             <!-- 커뮤니티 -->
-                            <a th:href="@{/nado/list}" class="nav-link">
-                                Community
+                            <a th:href="@{/nado/list}">
+                                <img src="\images\Community.png" alt="로고" style="margin-left:5em; width:6em;">
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <!-- 위험 지역 -->
-                            <a th:href="@{/travel/infor}" class="nav-link">
-                                Travel-Info
+                            <a th:href="@{/travel/infor}">
+                                <img src="\images\Travel-Info.png" style="margin-left:5em; width:6em;" alt="로고">
                             </a>
                         </li>
                     </ul>
@@ -49,7 +54,7 @@
                         <li class="nav-item active" style="margin-right: 0.5em;">
 
                             <!-- SVG 이미지를 클릭 가능한 링크로 감싸기 -->
-                            <a name="loginModalButton" class="nav-link">
+                            <a name="loginModalButton" class="nav-link" style="color:#fff !important;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                      class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -61,7 +66,7 @@
                         </li>
                         <li class="nav-item">
                             <!-- SVG 이미지를 클릭 가능한 링크로 감싸기 -->
-                            <a th:href="@{/join}" class="nav-link">
+                            <a th:href="@{/join}" class="nav-link" style="color:#fff !important;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                      class="bi bi-person-fill" viewBox="0 0 16 16">
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>

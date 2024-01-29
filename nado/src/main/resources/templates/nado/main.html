@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    #logo2Img {
+            max-width: 90%; /* 이미지의 최대 너비를 부모 요소인 mainDiv에 맞게 설정합니다. */
+            max-height: 90%; /* 이미지의 최대 높이도 부모 요소에 맞게 설정합니다. */
+            position: relative; /* 위치를 조정하기 위해 position을 설정합니다. */
+    }
+
+    #mainDiv{
+            width: 100%; /* 화면 전체 너비를 사용합니다. */
+            height: 280px;
+            background: #3F72AF;
+            display: flex;
+            justify-content: center; /* 내부 요소를 가운데 정렬합니다. */
+            align-items: center; /* 내부 요소를 가운데 정렬합니다. */
+            margin : 0;
+            padding : 0;
+    }
+
+     .mainBtn{
+            width : 15em;
+            height : 15em;
+            border-radius: 50%; /* 반지름 값을 버튼 크기에 따라 조절하세요 */
+            background-color: #fff; /* 버튼 배경색 */
+            color: #000;
+
+            border: none;
+
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+
+            margin : 3.5em 15em 0.5em 15em;
+    }
+
+    .mainBtn:hover {
+            box-shadow: 5px 5px 20px #B1CBE1;
+            font-weight : bold;
+    }
+
+    #btnDiv {
+            width : 100%;
+            float : left;
+            justify-content: space-between;
+            margin-top: 20px;
+            text-align: center; /* 버튼을 가운데 정렬합니다. */
+    }
+
+    #btn1, #btn2 {
+            float : left;
+    }
+</style>
+<th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
+    <th:block th:fragment="content">
+        <div id="mainDiv">
+            <a th:href="@{/nado/main}">
+                <img src="/images/logo.png" id="logo2Img">
+            </a>
+        </div>
+        <div id="btnDiv">
+            <div id="btn1">
+                <a th:href="@{/nado/list}">
+                    <button type="button" class="mainBtn">커뮤니티</button>
+                </a>
+            </div>
+            <div id="btn2">
+                <a th:href="@{/travel/infor}">
+                    <button type="button" class="mainBtn">나라별 기본정보 및 대사관 정보</button>
+                </a>
+            </div>
+        </div>
+    </th:block>
+</th:block>
+</html>
