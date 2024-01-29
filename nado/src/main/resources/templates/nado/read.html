@@ -1,34 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+
+</style>
+
+<script>
+    function Coment(){
+        // HTML에서 데이터 속성을 사용하여 값을 가져오기
+        const Coment = document.getElementById("Coment").value;
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+            document.getElementById("countryInformation").innerHTML = this.responseText;
+            }
+        };
+        // 동적으로 얻은 국가 이름 사용
+        xhttp.open("Post", "/nado/coment?Coment=" + encodeURIComponent(Coment));
+        xhttp.send();
+    }
+</script>
+
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1 class="mt-4">GuestBook Read Page</h1>
 
         <div class="form-group">
-            <label >Gno</label>
-            <input type="text" class="form-control" name="gno" th:value="${dto.gno}" readonly >
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>게시물 번호 : [[${dto.gno}]]</th>
+                    <th>작성자 : [[${dto.writer}]]</th>
+                    <th>작성 시간 : [[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td colspan="3">[[${dto.content}]]</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3"><input type="text" id="Coment" name="Coment" placeholder="댓글을 입력해주세요." style="width: 90%; margin-right: 1.5%;">
+                        <button type="button" style="width: 5%;" onclick="javascript:Coment()">작성 완료</button>
+                    </td>
+                    <td>[[${dto.coment}]]</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div class="form-group">
-            <label >Title</label>
-            <input type="text" class="form-control" name="title" th:value="${dto.title}" readonly >
-        </div>
-        <div class="form-group">
-            <label >Content</label>
-            <textarea class="form-control" rows="5" name="content" readonly>[[${dto.content}]]</textarea>
-        </div>
-        <div class="form-group">
-            <label >Writer</label>
-            <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-        </div>
-        <div class="form-group">
-            <label >ModDate</label>
-            <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-        </div>
+        <a th:href="@{/guestbook/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
+            <button type="button" class="btn btn-primary">수 정</button>
+        </a>
 
-        <a th:href="@{/guestbook/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}"><button type="button" class="btn btn-primary">수 정</button> </a>
-
-        <a th:href="@{/guestbook/list(page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}"><button type="button" class="btn btn-info">목 록</button></a>
+        <a th:href="@{/guestbook/list(page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
+            <button type="button" class="btn btn-info">목 록</button>
+        </a>
     </th:block>
 </th:block>
 </html>
