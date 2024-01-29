@@ -26,6 +26,6 @@ public class MemberController {
         System.out.println(memberDTO.getName());
         memberService.createMember(memberDTO);
 
-        return "ok";
+        return "redirect:/nado/list";
     }
 }

@@ -34,7 +34,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = obtainUsername(request);
         String password = obtainPassword(request);
 
-        System.out.println(username);
+        System.out.println("LoginFilter에서 받아온 ID 값 : " + username);
+        System.out.println("LoginFilter에서 받아온 PassWord 값 : " + password);
 
         // 스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
@@ -59,14 +60,16 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String token = jwtUtil.createJwt(username, role, 60*60*10L);
 
+        System.out.println("token에 대한 값을 얻었습니다 token : " + token);
+
         response.addHeader("Authorization", "Bearer " + token);
-        response.sendRedirect("/nado/list");
     }
 
     // 로그인 실패시 실행하는 메소드
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed){
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         response.setStatus(401);
     }
+
 }

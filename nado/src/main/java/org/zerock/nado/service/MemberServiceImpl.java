@@ -22,6 +22,7 @@ public class MemberServiceImpl implements MemberService{
         String name = memberDTO.getName();
         String tel = memberDTO.getTel();
 
+        /** DB에 이미 동일한 ID를 가진 회원이 존재하는가? */
         Boolean isExist = memberRepository.existsByid(id);
 
         if(isExist){

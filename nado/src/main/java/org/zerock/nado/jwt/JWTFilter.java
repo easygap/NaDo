@@ -26,8 +26,10 @@ public class JWTFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //request에서 Authorization 헤더를 찾음
+        // request에서 Authorization 헤더를 찾음
         String authorization= request.getHeader("Authorization");
+
+        System.out.println("JWTFilter에서 넘겨받은 토근 값은 다음과 같습니다. : " + authorization);
 
         //Authorization 헤더 검증
         if (authorization == null || !authorization.startsWith("Bearer ")) {
@@ -72,5 +74,7 @@ public class JWTFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);
+
+        System.out.println("세션까지 등록 완료 확인, 인증 토큰은 다음과 같다  : " + authToken);
     }
 }
