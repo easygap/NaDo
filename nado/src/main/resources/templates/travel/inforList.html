@@ -39,9 +39,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="table-light">
+            <tr class="table-light" th:unless="${result == '조회할수없는 나라입니다.'}">
                 <td></td>
                 <td id="countryInformation"></td>
+            </tr>
+
+            <tr class="table-light" th:if="${result == '조회할수없는 나라입니다.'}">
+                <td></td>
+                <td th:value="조회할수없는 나라입니다."></td>
             </tr>
             </tbody>
         </table>

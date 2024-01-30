@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 public class ApiExplorer {
 // 외교부_국가·지역별 재외공관 정보--------------------------------------------------------------------------------------------------------------------------------------------------------------
     public static List<EmbassyInfoDTO> getEmbassyList(String countryName) throws IOException {
@@ -53,9 +52,8 @@ public class ApiExplorer {
             while ((line = rd.readLine()) != null) {
                 response.append(line);
             }
+            return response.toString();
         }
-
-        return response.toString();
     }
 
 
@@ -67,9 +65,7 @@ public class ApiExplorer {
         urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("returnType", "UTF-8") + "=" + URLEncoder.encode("JSON", "UTF-8")); /*XML 또는 JSON*/
         urlBuilder.append("&" + URLEncoder.encode("cond[country_nm::EQ]", "UTF-8") + "=" + URLEncoder.encode(countryName, "UTF-8")); /*한글 국가명*/
-
         String apiResponse = sendGetRequest2(urlBuilder.toString());
-
         // JSON 응답을 문자열로 변환
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(apiResponse);
@@ -104,9 +100,8 @@ public class ApiExplorer {
             while ((line = rd.readLine()) != null) {
                 response.append(line);
             }
+            return response.toString();
         }
-
-        return response.toString();
     }
 
     // 외교부_국가∙지역별 특별여행주의보-----------------------------------------------------------------------------------------------------------------------------
@@ -119,7 +114,6 @@ public class ApiExplorer {
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
 
         String apiResponse = sendGetRequest3(urlBuilder.toString());
-
         // JSON 응답을 문자열로 변환
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(apiResponse);
@@ -151,8 +145,7 @@ public class ApiExplorer {
             while ((line = rd.readLine()) != null) {
                 response.append(line);
             }
+            return response.toString();
         }
-
-        return response.toString();
     }
 }
