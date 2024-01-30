@@ -15,7 +15,6 @@ public class SecurityEnvironmentDTO {
 
     @Override
     public String toString() {
-        System.out.println("DTO 여행 경보 : " + currentTravelAlarm);
         return "여행 경보 " + currentTravelAlarm;
     }
 }
