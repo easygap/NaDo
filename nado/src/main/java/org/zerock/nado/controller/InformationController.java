@@ -55,19 +55,26 @@ public class InformationController {
 
         // 기본 정보 추출
         String basicInfo = document.select("item basic").text();
+        if (basicInfo.equals("")) {
+            String result = "<br><h2>조회할수없는 나라입니다.</h2><br>" +
+                             "<h3>나라명이 틀렸는지 지역명을 적으셨는지 확인해주세요.</h3><br>" +
+                             "<h5>1.나라명으로만 조회가 가능합니다.</h5><br>" +
+                             "<h5>2.일부국가는 지원되지않습니다.</h5><br>";
+            return result;
+        } else {
+            // <br> 태그를 기준으로 문자열을 나누어 리스트에 담기
+            String[] infoArray = basicInfo.split("<div>");
 
-        // <br> 태그를 기준으로 문자열을 나누어 리스트에 담기
-        String[] infoArray = basicInfo.split("<div>");
+            StringBuilder result = new StringBuilder();
 
-        StringBuilder result = new StringBuilder();
-
-        // 나눈 정보를 출력 또는 활용하기
-        for (String info : infoArray) {
-            String trimmedInfo = info.trim();
-            if (!trimmedInfo.isEmpty()) {
-                result.append(trimmedInfo);
+            // 나눈 정보를 출력 또는 활용하기
+            for (String info : infoArray) {
+                String trimmedInfo = info.trim();
+                if (!trimmedInfo.isEmpty()) {
+                    result.append(trimmedInfo);
+                }
             }
+            return result.toString();
         }
-        return result.toString();
     }
 }
