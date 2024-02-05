@@ -70,6 +70,7 @@ public class NadoServiceImpl implements NadoService {
         System.out.println(dto.getGno());
         Optional<Nado> result = repository.findById(dto.getGno());
 
+
         if (result.isPresent()) {
             Nado entity = result.get();
 
