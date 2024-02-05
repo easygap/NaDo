@@ -4,23 +4,6 @@
 
 </style>
 
-<script>
-    function Coment(){
-        // HTML에서 데이터 속성을 사용하여 값을 가져오기
-        const Coment = document.getElementById("Coment").value;
-
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function(){
-            if(this.readyState == 4 && this.status == 200){
-            document.getElementById("countryInformation").innerHTML = this.responseText;
-            }
-        };
-        // 동적으로 얻은 국가 이름 사용
-        xhttp.open("Post", "/nado/coment?Coment=" + encodeURIComponent(Coment));
-        xhttp.send();
-    }
-</script>
-
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1 class="mt-4">GuestBook Read Page</h1>
@@ -37,7 +20,12 @@
 
                 <tbody>
                 <tr>
-                    <td colspan="3">[[${dto.content}]]</td>
+                    <td colspan="1" style="width=10%;">제목</td>
+                    <td colspan="2">[[${dto.title}]]</td>
+                </tr>
+                <tr>
+                    <td colspan="1" style="width=10%;">내용</td>
+                    <td colspan="2">[[${dto.content}]]</td>
                 </tr>
 
                 <tr>
@@ -49,11 +37,11 @@
             </table>
         </div>
 
-        <a th:href="@{/guestbook/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
+        <a th:href="@{/nado/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
             <button type="button" class="btn btn-primary">수 정</button>
         </a>
 
-        <a th:href="@{/guestbook/list(page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
+        <a th:href="@{/nado/list(page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
             <button type="button" class="btn btn-info">목 록</button>
         </a>
     </th:block>
