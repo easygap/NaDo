@@ -56,10 +56,11 @@ public class InformationController {
         // 기본 정보 추출
         String basicInfo = document.select("item basic").text();
         if (basicInfo.equals("")) {
-            String result = "<br><h2>조회할수없는 나라입니다.</h2><br>" +
-                             "<h3>나라명이 틀렸는지 지역명을 적으셨는지 확인해주세요.</h3><br>" +
-                             "<h5>1.나라명으로만 조회가 가능합니다.</h5><br>" +
-                             "<h5>2.일부국가는 지원되지않습니다.</h5><br>";
+            String result = "<h2 style=\"color: red;\">※조회할수없는 국가입니다.※</h2><br>" +
+                            "<h3>국가명이 틀렸는지 지역명을 적으셨는지 확인해주세요.</h3><br>" +
+                            "<h5>1.국가명으로만 조회가 가능합니다.</h5>" +
+                            "<h5>2.일부국가는 지원되지않습니다.</h5>" +
+                            "<h5>3.국가명을 한글로적어야 정상작동이 가능합니다.";
             return result;
         } else {
             // <br> 태그를 기준으로 문자열을 나누어 리스트에 담기

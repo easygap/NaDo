@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
         <h1>Information Page</h1>
@@ -10,7 +11,8 @@
                 </div>
                 <input type="text" class="form-control" id="searchQuery" name="searchInfor" th:value="${countryName}">
                 <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-outline-secondary btn-search" style="width:15em" type="submit">Search</button>
+                    <button class="btn btn-outline-secondary btn-search" style="width:15em" type="submit">Search
+                    </button>
                 </div>
             </div>
         </form>
@@ -31,25 +33,25 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="table-light" th:unless="${result == '조회할수없는 나라입니다.'}">
-                <td></td>
-                <td id="countryInformation"></td>
-            </tr>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light" th:unless="${result == '조회할수없는 나라입니다.'}">
+                    <td></td>
+                    <td id="countryInformation"></td>
+                </tr>
 
-            <tr class="table-light" th:if="${result == '조회할수없는 나라입니다.'}">
-                <td></td>
-                <td th:value="조회할수없는 나라입니다."></td>
-            </tr>
-            </tbody>
-        </table>
+                <tr class="table-light" th:if="${result == '조회할수없는 나라입니다.'}">
+                    <td></td>
+                    <td th:value="조회할수없는 나라입니다."></td>
+                </tr>
+                </tbody>
+            </table>
     </th:block>
 </th:block>
 
