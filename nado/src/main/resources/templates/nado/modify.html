@@ -5,7 +5,7 @@
     <th:block th:fragment="content">
         <h1 class="mt-4">GuestBook Modify Page</h1>
 
-        <form action="/nado/modify" method="post">
+        <form id="nadoForm" action="/nado/modify" method="post">
 
             <input type="hidden" name="page" th:value="${requestDTO.page}">
             <input type="hidden" name="type" th:value="${requestDTO.type}">
@@ -32,12 +32,6 @@
             </div>
 
             <div class="form-group">
-                <label>RegDate</label>
-                <input type="text" class="form-control"
-                       th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-            </div>
-
-            <div class="form-group">
                 <label>ModDate</label>
                 <input type="text" class="form-control"
                        th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
@@ -51,7 +45,7 @@
     </th:block>
 </th:block>
 <script th:inline="javascript">
-    var actionForm = $("form");
+    var actionForm = $("#nadoForm");
 
     $(".removeBtn").click(function() {
 

@@ -52,6 +52,7 @@ public class NadoController {
     @GetMapping({"/read","/modify"})
     public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
         log.info("gno: " + gno);
+        System.out.println("확인용 : " + gno);
         NadoDTO dto = service.read(gno);
         model.addAttribute("dto", dto);
     }
