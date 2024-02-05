@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 public class Nado extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long gno;
 
     @Column(length = 100, nullable = false)
@@ -20,14 +20,14 @@ public class Nado extends BaseEntity {
     @Column(length = 1500, nullable = false)
     private String content;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 50, nullable = false)
     private String writer;
 
-    public void changeTitle(String title){
+    public void changeTitle(String title) {
         this.title = title;
     }
 
-    public void changeContent(String content){
+    public void changeContent(String content) {
         this.content = content;
     }
 }

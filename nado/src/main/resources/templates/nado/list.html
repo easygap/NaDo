@@ -52,54 +52,35 @@
         <ul class="pagination h-100 justify-content-center align-items-center">
             <li class="page-item" th:if="${result.prev}">
                 <a class="page-link"
-                   th:href="@{/guestbook/list(page=1, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}"
+                   th:href="@{/nado/list(page=1, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}"
                    tabindex="-1">처 음</a>
             </li>
 
             <li class="page-item " th:if="${result.prev}">
                 <a class="page-link"
-                   th:href="@{/guestbook/list(page= ${result.start -1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}">이
+                   th:href="@{/nado/list(page= ${result.start -1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword} )}">이
                     전</a>
             </li>
 
             <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
                 <a class="page-link"
-                   th:href="@{/guestbook/list(page = ${page}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">
+                   th:href="@{/nado/list(page = ${page}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">
                     [[${page}]]
                 </a>
             </li>
 
             <li class="page-item" th:if="${result.next}">
                 <a class="page-link"
-                   th:href="@{/guestbook/list(page = ${result.end + 1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">다
+                   th:href="@{/nado/list(page = ${result.end + 1}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">다
                     음</a>
             </li>
             <li class="page-item" th:if="${result.next}">
                 <a class="page-link"
-                   th:href="@{/guestbook/list(page = ${result.totalPage}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">맨
+                   th:href="@{/nado/list(page = ${result.totalPage}, type=${pageRequestDTO.type}, keyword = ${pageRequestDTO.keyword})}">맨
                     끝</a>
             </li>
         </ul> <!-- 추가되는 태그의 끝 -->
 
-        <div class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">확인창</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>게시글을 저장하시겠습니까?</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫 기</button>
-                        <button type="button" class="btn btn-primary">저 장</button>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script th:inline="javascript">
             var msg = [[${msg}]];
             console.log(msg);
