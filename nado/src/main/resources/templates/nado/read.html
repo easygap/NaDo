@@ -78,13 +78,32 @@
                 </tr>
 
                 <tr>
-                    <td colspan="3"><input type="text" id="Coment" name="Coment" placeholder="댓글을 입력해주세요."
-                                           style="width: 90%; margin-right: 1.5%;">
-                        <button type="button" style="width: 5%;" onclick="javascript:Coment()">작성 완료</button>
-                    </td>
+                    댓글 리스트 띄울 곳.
+                    작성자
+                    댓글 내용 / 삭제버튼
                 </tr>
                 </tbody>
             </table>
+
+            <form id="commentForm" th:action="@{/nado/read}" th:method="post">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td colspan="1">작성자 : <input type="text" id="comWriter" name="comWriter" placeholder="작성자"
+                                                     style="margin-right : 2.5em"> 비밀번호 : <input type="password" id="comPWD"
+                                                                                                 name="comPWD"
+                                                                                                 placeholder="비밀번호">
+                            <br><br>
+                            <textarea id="comContents" name="comContents" placeholder="댓글을 입력해주세요."
+                                      style="width: 90%; margin-right: 1.5%;"></textarea>
+                            <input type="hidden" name="gno" th:value="${dto.gno}" />
+                            <input type="hidden" name="title" th:value="${dto.title}" />
+                            <button type="button" class="btn btn-primary"  onclick="javascript:Coment()">작성 완료</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
         </div>
 
         <a th:href="@{/nado/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword=${requestDTO.keyword})}"
@@ -99,8 +118,21 @@
         <input type="hidden" id="gno" th:value="${dto.gno}"/>
     </th:block>
 </th:block>
-
 <script th:inline="javascript">
+    function Coment() {
+    var writer = document.getElementById('comWriter').value.trim();
+    var password = document.getElementById('comPWD').value.trim();
+    var contents = document.getElementById('comContents').value.trim();
+
+    if (!writer || !password || !contents) {
+        alert("빈칸없이 작성을 부탁드립니다.");
+        return false;
+    }else {
+        document.getElementById('commentForm').submit();
+        return true;
+    }
+    return true;
+}
     var modifyUrl = /*[[ @{/nado/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword=${requestDTO.keyword})} ]]*/ '';
 </script>
 
