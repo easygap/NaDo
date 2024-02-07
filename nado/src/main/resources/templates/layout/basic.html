@@ -51,10 +51,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active" style="margin-right: 0.5em;">
-
                             <!-- SVG 이미지를 클릭 가능한 링크로 감싸기 -->
-                            <a name="loginModalButton" class="nav-link" style="color:#fff !important;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
                                      class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd"
@@ -64,16 +61,6 @@
                                 </svg>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <!-- SVG 이미지를 클릭 가능한 링크로 감싸기 -->
-                            <a th:href="@{/join}" class="nav-link" style="color:#fff !important;">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
-                                     class="bi bi-person-fill" viewBox="0 0 16 16">
-                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                </svg>
-                            </a>
-                        </li>
-
                     </ul>
                 </div>
             </nav>
@@ -86,17 +73,6 @@
         <!-- /#page-content-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="loginModal" aria-labelledby="loginModalLable" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div th:replace="~{/auth/login :: login-content}"></div>
-            </div>
-        </div>
-    </div>
-
     </body>
 </th:block>
 </html>

@@ -23,6 +23,9 @@ public class Nado extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String writer;
 
+    @Column(length = 1500, nullable = false)
+    private String password;
+
     public void changeTitle(String title) {
         this.title = title;
     }

@@ -16,5 +16,6 @@ public class NadoDTO {
     private String title;
     private String content;
     private String writer;
+    private String password;
     private LocalDateTime regDate, modDate;
 }
