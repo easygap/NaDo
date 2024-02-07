@@ -1,12 +1,61 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <style>
+    /* CSS 스타일링은 여기에 작성합니다. */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
 
+    .modal-content {
+        display:flex;
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .checkPassword {
+        width: 45%;
+    }
+
+    .closeModal {
+        width: 45%;
+    }
+
+    .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2.5%;
+    margin-right: 0%;
+    }
 </style>
+
+<!-- 모달 창 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <h2>비밀번호 입력</h2>
+        <input type="password" id="password" placeholder="Password">
+        <div class="button-container">
+            <button class="checkPassword" onclick="checkPassword()">확인</button>
+            <button class="closeModal" onclick="closeModal()">닫기</button>
+        </div>
+    </div>
+</div>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
-        <h1 class="mt-4">Nado Read Page</h1>
+        <h1 class="mt-4">GuestBook Read Page</h1>
 
         <div class="form-group">
             <table class="table table-striped">
@@ -57,13 +106,16 @@
             </form>
         </div>
 
-        <a th:href="@{/nado/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
-            <button type="button" class="btn btn-primary">수 정</button>
+        <a th:href="@{/nado/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword=${requestDTO.keyword})}"
+           th:onclick="openModal(); return false;">
+            <button type="button" class="btn btn-primary modifyBtn">수 정</button>
         </a>
 
         <a th:href="@{/nado/list(page=${requestDTO.page}, type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
             <button type="button" class="btn btn-info">목 록</button>
         </a>
+
+        <input type="hidden" id="gno" th:value="${dto.gno}"/>
     </th:block>
 </th:block>
 <script th:inline="javascript">
@@ -81,5 +133,48 @@
     }
     return true;
 }
+    var modifyUrl = /*[[ @{/nado/modify(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword=${requestDTO.keyword})} ]]*/ '';
 </script>
+
+<script>
+    // 모달 창 열기
+    function openModal() {
+        document.getElementById('myModal').style.display = 'block';
+    }
+
+    // 모달 창 닫기
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+
+    // 비밀번호 확인
+    function checkPassword() {
+        var password = document.getElementById('password').value;       //컨트롤러로 보낼값
+        var gno = document.getElementById('gno').value;                 //컨트롤러로 보낼값
+        // 비밀번호를 컨트롤러로 전송하는 Ajax 요청
+        $.ajax({
+            url: '/nado/checkPassword',                                 //컨트롤러 맵핑 주소
+            type: 'POST',                                               //데이터 방식
+            contentType: 'application/json',                            //안건들여도되는거
+            data: JSON.stringify({ password: password, gno: gno}),      //컴트롤러로 보낼값을 맵방식으로 전달
+            success: function(response) {                               //컨트롤러에의 return 값
+                if (response === 'success') {                           //return 값전달받은거로 컨트롤러 이후작업
+                    // 비밀번호 일치
+                    alert("비밀번호가 확인되었습니다.");
+                    closeModal(); // 모달 창 닫기
+                    // 비밀번호가 일치하는 경우 수정 페이지로 이동
+                    window.location.href = modifyUrl;
+                } else {
+                    // 비밀번호 불일치
+                    alert("비밀번호가 일치하지 않습니다.");
+                }
+            },
+            error: function(xhr, status, error) {
+                // 에러 처리
+                console.error(error);
+            }
+        });
+    }
+</script>
+
 </html>

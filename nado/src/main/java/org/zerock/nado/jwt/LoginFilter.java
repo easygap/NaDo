@@ -9,6 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.zerock.nado.dto.CustomUserDetails;
 
 
@@ -25,6 +26,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     public LoginFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil){
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        // 수동으로 파라미터 이름 설정
     }
 
     @Override
@@ -34,10 +36,13 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = obtainUsername(request);
         String password = obtainPassword(request);
 
-        System.out.println(username);
-
         // 스프링 시큐리티에서 username과 password를 검증하기 위해서는 token에 담아야 함
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);
+
+        System.out.println("request : " + request);
+        System.out.println("authToken : " + authToken);
+        System.out.println("username : " + username);
+        System.out.println("password : " + password);
 
         // token에 담은 검증을 위한 AuthenticationManager로 전달
         return authenticationManager.authenticate(authToken);
@@ -59,8 +64,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String token = jwtUtil.createJwt(username, role, 60*60*10L);
 
-        response.addHeader("Authorization", "Bearer " + token);
-        response.sendRedirect("/nado/list");
+        response.sendRedirect("/nado/main");
+        response.getWriter().flush();
     }
 
     // 로그인 실패시 실행하는 메소드

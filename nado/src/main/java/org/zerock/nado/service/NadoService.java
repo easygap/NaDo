@@ -12,6 +12,8 @@ public interface NadoService {
 
     PageResultDTO<NadoDTO, Nado> getList(PageRequestDTO requestDTO);
 
+    String getPasswordByGno(Long gno);
+
     void remove(Long gno);
     void modify(NadoDTO dto);
 
@@ -21,6 +23,7 @@ public interface NadoService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .writer(dto.getWriter())
+                .password(dto.getPassword())
                 .build();
 
         return entity;
@@ -33,6 +36,7 @@ public interface NadoService {
                 .content(entity.getContent())
                 .writer(entity.getWriter())
                 .modDate(entity.getModDate())
+                .password(entity.getPassword())
                 .build();
 
         return dto;

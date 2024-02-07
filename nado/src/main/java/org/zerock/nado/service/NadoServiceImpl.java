@@ -116,4 +116,17 @@ public class NadoServiceImpl implements NadoService {
 
         return booleanBuilder;
     }
+
+    public String getPasswordByGno(Long gno) {
+        System.out.println("gno : " + gno);
+        System.out.println("repository.findById(gno) : " + repository.findById(gno));
+        Optional<Nado> result = repository.findById(gno);
+
+        if (result.isPresent()) {
+            Nado entity = result.get();
+            return entity.getPassword(); // 예시로 getPassword() 메서드를 사용하여 게시물의 비밀번호를 가져옴
+        } else {
+            return null;
+        }
+    }
 }
