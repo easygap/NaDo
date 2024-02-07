@@ -3,6 +3,8 @@ package org.zerock.nado.service;
 import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.entity.Comment;
 
+import java.util.List;
+
 public interface CommentsService {
 
     default Comment toComments(CommentsDTO dto){

@@ -7,6 +7,9 @@ import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.entity.Comment;
 import org.zerock.nado.repository.CommentsRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Log4j2
 @RequiredArgsConstructor

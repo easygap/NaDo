@@ -56,8 +56,6 @@ public class NadoController {
         log.info("gno: " + gno);
         NadoDTO dto = service.read(gno);
         model.addAttribute("dto", dto);
-
-        여기에 댓글 정보 불러오려고 함.
     }
 
     @PostMapping("/read")
