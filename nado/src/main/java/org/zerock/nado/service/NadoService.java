@@ -35,6 +35,7 @@ public interface NadoService {
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .writer(entity.getWriter())
+                .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .password(entity.getPassword())
                 .build();

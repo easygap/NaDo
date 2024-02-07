@@ -14,9 +14,6 @@ import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
 import org.zerock.nado.dto.PageResultDTO;
 import org.zerock.nado.repository.NadoRepository;
-import org.zerock.nado.dto.NadoDTO;
-import org.zerock.nado.entity.Nado;
-import org.zerock.nado.repository.NadoRepository;
 
 import java.util.Optional;
 import java.util.function.Function;
@@ -59,6 +56,7 @@ public class NadoServiceImpl implements NadoService {
 
     public NadoDTO read(Long gno) {
         Optional<Nado> result = repository.findById(gno);
+        System.out.println("result : " + result);
         return result.isPresent() ? entityToDto(result.get()) : null;
     }
 
