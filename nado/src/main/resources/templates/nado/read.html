@@ -117,16 +117,16 @@
 
     // 비밀번호 확인
     function checkPassword() {
-        var password = document.getElementById('password').value;
-        var gno = document.getElementById('gno').value;
+        var password = document.getElementById('password').value;       //컨트롤러로 보낼값
+        var gno = document.getElementById('gno').value;                 //컨트롤러로 보낼값
         // 비밀번호를 컨트롤러로 전송하는 Ajax 요청
         $.ajax({
-            url: '/nado/checkPassword',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ password: password, gno: gno}),
-            success: function(response) {
-                if (response === 'success') {
+            url: '/nado/checkPassword',                                 //컨트롤러 맵핑 주소
+            type: 'POST',                                               //데이터 방식
+            contentType: 'application/json',                            //안건들여도되는거
+            data: JSON.stringify({ password: password, gno: gno}),      //컴트롤러로 보낼값을 맵방식으로 전달
+            success: function(response) {                               //컨트롤러에의 return 값
+                if (response === 'success') {                           //return 값전달받은거로 컨트롤러 이후작업
                     // 비밀번호 일치
                     alert("비밀번호가 확인되었습니다.");
                     closeModal(); // 모달 창 닫기
