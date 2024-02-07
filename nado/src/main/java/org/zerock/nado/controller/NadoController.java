@@ -6,8 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
+import org.zerock.nado.service.CommentsService;
 import org.zerock.nado.service.NadoService;
 
 import java.util.Map;
@@ -19,6 +21,7 @@ import java.util.Map;
 public class NadoController {
 
     private final NadoService service;
+    private final CommentsService comService;
 
     @GetMapping("/")
     public String index() {
@@ -49,11 +52,22 @@ public class NadoController {
         return "redirect:/nado/list";
     }
     @GetMapping({"/read","/modify"})
-    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model, CommentsDTO commentsDTO) {
         log.info("gno: " + gno);
-        System.out.println("확인용 : " + gno);
         NadoDTO dto = service.read(gno);
         model.addAttribute("dto", dto);
+    }
+
+    @PostMapping("/read")
+    public String comments(CommentsDTO dto, NadoDTO nadoDTO, RedirectAttributes redirectAttributes){
+        System.out.println("dto :    " + dto);
+
+        Long cno = comService.CommRegister(dto);
+        redirectAttributes.addAttribute("gno", nadoDTO.getGno());
+        redirectAttributes.addAttribute("title", nadoDTO.getTitle());
+        redirectAttributes.addAttribute("cno", dto.getCno());
+
+        return "redirect:/nado/read";
     }
 
     @PostMapping("/remove")
