@@ -1,27 +1,35 @@
 package org.zerock.nado.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.CorsFilter;
 import org.zerock.nado.jwt.JWTFilter;
 import org.zerock.nado.jwt.JWTUtil;
 import org.zerock.nado.jwt.LoginFilter;
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
+    private final CorsFilter corsFilter;
+
+    public SecurityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil, CorsFilter corsFilter) {
 
         this.authenticationConfiguration = authenticationConfiguration;
         this.jwtUtil = jwtUtil;
+        this.corsFilter = corsFilter;
     }
 
     @Bean
@@ -34,6 +42,16 @@ public class SecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
 
         return new BCryptPasswordEncoder();
+    }
+
+    public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
+
+        @Override
+        public void configure(HttpSecurity builder) {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            builder.addFilter(corsFilter); 		// 추가한 코드
+
+        }
     }
 
     @Bean
@@ -57,7 +75,6 @@ public class SecurityConfig {
                         .requestMatchers("/**", "/css/**", "/vendor/**", "/layout/basic", "/travel/**", "/nado/**", "/auth/**", "/login", "/", "/join").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
-
         http
                 .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
         http
