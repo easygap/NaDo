@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
+import org.zerock.nado.service.CommentsService;
 import org.zerock.nado.service.NadoService;
 
 @Controller
@@ -20,6 +22,7 @@ import org.zerock.nado.service.NadoService;
 public class NadoController {
 
     private final NadoService service;
+    private final CommentsService comService;
 
     @GetMapping("/")
     public String index() {
@@ -50,11 +53,24 @@ public class NadoController {
         return "redirect:/nado/list";
     }
     @GetMapping({"/read","/modify"})
-    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+    public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model, CommentsDTO commentsDTO) {
         log.info("gno: " + gno);
-        System.out.println("확인용 : " + gno);
         NadoDTO dto = service.read(gno);
         model.addAttribute("dto", dto);
+
+        여기에 댓글 정보 불러오려고 함.
+    }
+
+    @PostMapping("/read")
+    public String comments(CommentsDTO dto, NadoDTO nadoDTO, RedirectAttributes redirectAttributes){
+        System.out.println("dto :    " + dto);
+
+        Long cno = comService.CommRegister(dto);
+        redirectAttributes.addAttribute("gno", nadoDTO.getGno());
+        redirectAttributes.addAttribute("title", nadoDTO.getTitle());
+        redirectAttributes.addAttribute("cno", dto.getCno());
+
+        return "redirect:/nado/read";
     }
 
     @PostMapping("/remove")
