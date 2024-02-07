@@ -56,7 +56,6 @@ public class NadoServiceImpl implements NadoService {
 
     public NadoDTO read(Long gno) {
         Optional<Nado> result = repository.findById(gno);
-        System.out.println("result : " + result);
         return result.isPresent() ? entityToDto(result.get()) : null;
     }
 

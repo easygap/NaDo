@@ -1,5 +1,6 @@
 package org.zerock.nado.service;
 
+import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.entity.Nado;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;

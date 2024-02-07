@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.zerock.nado.entity.Nado;
 
 import java.time.LocalDateTime;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Data
 public class NadoDTO {
     private Long gno;
+    private Nado comgno;
     private String title;
     private String content;
     private String writer;

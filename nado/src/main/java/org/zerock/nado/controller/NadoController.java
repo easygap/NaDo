@@ -9,9 +9,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
+import org.zerock.nado.entity.Comment;
+import org.zerock.nado.entity.Nado;
 import org.zerock.nado.service.CommentsService;
 import org.zerock.nado.service.NadoService;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -51,14 +54,21 @@ public class NadoController {
         redirectAttributes.addFlashAttribute("msg", gno);
         return "redirect:/nado/list";
     }
+
     @GetMapping({"/read","/modify"})
     public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model, CommentsDTO commentsDTO) {
         log.info("gno: " + gno);
         NadoDTO dto = service.read(gno);
+        List<CommentsDTO> comdto = comService.getCommentsByGno(gno); // 게시물의 gno를 사용하여 댓글 가져오기
+
+        System.out.println("comdto : " + comdto);
+        System.out.println("/read/modify : " + dto);
+
         model.addAttribute("dto", dto);
+        model.addAttribute("comdto", comdto); // 댓글 목록 모델에 추가
     }
 
-    @PostMapping("/read")
+    @PostMapping("/comment")
     public String comments(CommentsDTO dto, NadoDTO nadoDTO, RedirectAttributes redirectAttributes){
         System.out.println("dto :    " + dto);
 
@@ -106,5 +116,24 @@ public class NadoController {
         } else {
             return "failure";
         }
+    }
+
+    @PostMapping("/comcheckPassword")
+    @ResponseBody
+    public String comcheckPassword(@RequestBody Map<String, String> requestBody) {
+
+        String password = requestBody.get("password"); // 입력값
+        String correctPassword = comService.getcomPasswordByGno(Long.valueOf(requestBody.get("gno"))); // DB에서 게시물번호로 조회한 게시물 비밀번호
+
+        System.out.println("requestBody.get(\"compassword\") : " + requestBody.get("compassword"));
+        System.out.println("requestBody.get(\"gno\") : " + requestBody.get("gno"));
+        System.out.println("requestBody.get(\"comment\") : " + requestBody.get("comment"));
+//        System.out.println("correctPassword : " + correctPassword);
+//        if (password.equals(correctPassword)) {
+//            return "success";
+//        } else {
+//            return "failure";
+//        }
+        return null;
     }
 }
