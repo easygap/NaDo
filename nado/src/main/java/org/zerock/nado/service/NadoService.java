@@ -1,5 +1,6 @@
 package org.zerock.nado.service;
 
+import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.entity.Nado;
 import org.zerock.nado.dto.NadoDTO;
 import org.zerock.nado.dto.PageRequestDTO;
@@ -35,6 +36,7 @@ public interface NadoService {
                 .title(entity.getTitle())
                 .content(entity.getContent())
                 .writer(entity.getWriter())
+                .regDate(entity.getRegDate())
                 .modDate(entity.getModDate())
                 .password(entity.getPassword())
                 .build();

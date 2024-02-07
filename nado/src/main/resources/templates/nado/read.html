@@ -53,17 +53,26 @@
     </div>
 </div>
 
+<div id="comModal" class="modal">
+    <div class="modal-content">
+        <h2>비밀번호 입력</h2>
+        <input type="password" id="compassword" placeholder="Password">
+        <div class="button-container">
+            <button class="checkPassword" onclick="comcheckPassword()">확인</button>
+            <button class="closeModal" onclick="comclosemodal()">닫기</button>
+        </div>
+    </div>
+</div>
+
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
     <th:block th:fragment="content">
-        <h1 class="mt-4">GuestBook Read Page</h1>
-
         <div class="form-group">
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>게시물 번호 : [[${dto.gno}]]</th>
                     <th>작성자 : [[${dto.writer}]]</th>
-                    <th>작성 시간 : [[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}]]</th>
+                    <th>작성 시간 : [[${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm')}]]</th>
                 </tr>
                 </thead>
 
@@ -77,30 +86,36 @@
                     <td colspan="2">[[${dto.content}]]</td>
                 </tr>
 
-                <tr>
-                    댓글 리스트 띄울 곳.
-                    작성자
-                    댓글 내용 / 삭제버튼
-                </tr>
                 </tbody>
             </table>
 
-            <form id="commentForm" th:action="@{/nado/read}" th:method="post">
+            <form id="commentForm" th:action="@{/nado/comment}" th:method="post">
                 <table class="table table-striped">
                     <tbody>
                     <tr>
-                        <td colspan="1">작성자 : <input type="text" id="comWriter" name="comWriter" placeholder="작성자"
-                                                     style="margin-right : 2.5em"> 비밀번호 : <input type="password" id="comPWD"
-                                                                                                 name="comPWD"
-                                                                                                 placeholder="비밀번호">
+                        <td colspan="3">작성자 : <input type="text" id="comWriter" name="comWriter" placeholder="작성자"
+                                                     style="margin-right : 2.5em"> 비밀번호 :
+                            <input type="password" id="comPWD" name="comPWD" placeholder="비밀번호">
                             <br><br>
                             <textarea id="comContents" name="comContents" placeholder="댓글을 입력해주세요."
                                       style="width: 90%; margin-right: 1.5%;"></textarea>
-                            <input type="hidden" name="gno" th:value="${dto.gno}" />
-                            <input type="hidden" name="title" th:value="${dto.title}" />
-                            <button type="button" class="btn btn-primary"  onclick="javascript:Coment()">작성 완료</button>
+                            <input type="hidden" name="gno" th:value="${dto.gno}"/>
+                            <input type="hidden" name="title" th:value="${dto.title}"/>
+                            <button type="button" class="btn btn-primary" onclick="javascript:Coment()">작성 완료</button>
                         </td>
                     </tr>
+
+                    <tr th:each="comment : ${comdto}">
+                        <td colspan="1" style="width:10%;">[[${comment.comWriter}]]</td>
+                        <td colspan="2" id="comment">[[${comment.comContents}]]</td>
+                        <td colspan="1">
+                            <a th:href="@{/nado/read(gno=${dto.gno}, page=${requestDTO.page}, type=${requestDTO.type}, keyword=${requestDTO.keyword})}"
+                               th:onclick="comopenmodal(); return false;">
+                                <button type="button" class="btn btn-primary modifyBtn">삭 제</button>
+                            </a>
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </form>
@@ -159,6 +174,48 @@
             data: JSON.stringify({ password: password, gno: gno}),      //컴트롤러로 보낼값을 맵방식으로 전달
             success: function(response) {                               //컨트롤러에의 return 값
                 if (response === 'success') {                           //return 값전달받은거로 컨트롤러 이후작업
+                    // 비밀번호 일치
+                    alert("비밀번호가 확인되었습니다.");
+                    closeModal(); // 모달 창 닫기
+                    // 비밀번호가 일치하는 경우 수정 페이지로 이동
+                    window.location.href = modifyUrl;
+                } else {
+                    // 비밀번호 불일치
+                    alert("비밀번호가 일치하지 않습니다.");
+                }
+            },
+            error: function(xhr, status, error) {
+                // 에러 처리
+                console.error(error);
+            }
+        });
+    }
+//----------------------------------------------------------------------------------------------------------------------
+
+    // 모달 창 열기
+    function comopenmodal() {
+        document.getElementById('comModal').style.display = 'block';
+    }
+
+    // 모달 창 닫기
+    function comclosemodal() {
+        document.getElementById('comModal').style.display = 'none';
+    }
+
+    // 비밀번호 확인
+    function comcheckPassword() {
+        var compassword = document.getElementById('compassword').value;                                                 //컨트롤러로 보낼값
+        var gno = document.getElementById('gno').value;                                                                 //컨트롤러로 보낼값
+        var comment = document.getElementById('comment').innerText;                                                     // 댓글 내용
+
+        // 비밀번호를 컨트롤러로 전송하는 Ajax 요청
+        $.ajax({
+            url: '/nado/comcheckPassword',                                                                              //컨트롤러 맵핑 주소
+            type: 'POST',                                                                                               //데이터 방식
+            contentType: 'application/json',                                                                            //안건들여도되는거
+            data: JSON.stringify({ compassword: compassword, gno: gno, comment: comment}),                              //컴트롤러로 보낼값을 맵방식으로 전달
+            success: function(response) {                                                                               //컨트롤러에의 return 값
+                if (response === 'success') {                                                                           //return 값전달받은거로 컨트롤러 이후작업
                     // 비밀번호 일치
                     alert("비밀번호가 확인되었습니다.");
                     closeModal(); // 모달 창 닫기

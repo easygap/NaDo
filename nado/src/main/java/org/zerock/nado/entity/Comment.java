@@ -21,9 +21,8 @@ public class Comment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cno;
 
-    @ManyToOne
-    @JoinColumn(name="commGno")
-    private Nado gno;
+    @Column(name = "comgno", nullable = false)
+    private Long gno;
 
     @Column(name = "comContents", nullable = false)
     private String comContents;

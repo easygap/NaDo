@@ -2,6 +2,7 @@ package org.zerock.nado.service;
 
 import org.zerock.nado.dto.CommentsDTO;
 import org.zerock.nado.entity.Comment;
+import org.zerock.nado.entity.Nado;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface CommentsService {
     }
 
     Long CommRegister(CommentsDTO dto);
+    List<CommentsDTO> getCommentsByGno(Long gno);
+
+    String getcomPasswordByGno(Long gno);
 }
