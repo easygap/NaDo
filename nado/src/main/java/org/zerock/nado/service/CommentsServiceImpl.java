@@ -54,10 +54,10 @@ public class CommentsServiceImpl implements CommentsService{
                 .build();
     }
 
-    public String getcomPasswordByGno(Long gno) {
-        System.out.println("gno : " + gno);
-        System.out.println("repository.findById(gno) : " + repository.findById(gno));
-        Optional<Comment> result = repository.findById(gno);
+    public String getcomPasswordByCno(Long cno) {
+        System.out.println("gno : " + cno);
+        System.out.println("repository.findById(gno) : " + repository.findById(cno));
+        Optional<Comment> result = repository.findById(cno);
 
         if (result.isPresent()) {
             Comment entity = result.get();
@@ -65,5 +65,9 @@ public class CommentsServiceImpl implements CommentsService{
         } else {
             return null;
         }
+    }
+
+    public void remove(Long cno) {
+        repository.deleteById(cno);
     }
 }

@@ -23,5 +23,7 @@ public interface CommentsService {
     Long CommRegister(CommentsDTO dto);
     List<CommentsDTO> getCommentsByGno(Long gno);
 
-    String getcomPasswordByGno(Long gno);
+    String getcomPasswordByCno(Long cno);
+
+    void remove(Long cno);
 }
