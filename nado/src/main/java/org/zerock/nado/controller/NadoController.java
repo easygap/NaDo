@@ -122,18 +122,18 @@ public class NadoController {
     @ResponseBody
     public String comcheckPassword(@RequestBody Map<String, String> requestBody) {
 
-        String password = requestBody.get("password"); // 입력값
-        String correctPassword = comService.getcomPasswordByGno(Long.valueOf(requestBody.get("gno"))); // DB에서 게시물번호로 조회한 게시물 비밀번호
+        String password = requestBody.get("compassword"); // 입력값
+        String correctPassword = comService.getcomPasswordByCno(Long.valueOf(requestBody.get("cno"))); // DB에서 게시물번호로 조회한 게시물 비밀번호
+        Long cno = Long.valueOf(requestBody.get("cno"));
 
         System.out.println("requestBody.get(\"compassword\") : " + requestBody.get("compassword"));
-        System.out.println("requestBody.get(\"gno\") : " + requestBody.get("gno"));
-        System.out.println("requestBody.get(\"comment\") : " + requestBody.get("comment"));
-//        System.out.println("correctPassword : " + correctPassword);
-//        if (password.equals(correctPassword)) {
-//            return "success";
-//        } else {
-//            return "failure";
-//        }
-        return null;
+        System.out.println("requestBody.get(\"cno\") : " + requestBody.get("cno"));
+        System.out.println("correctPassword : " + correctPassword);
+        if (password.equals(correctPassword)) {
+            comService.remove(cno);
+            return "success";
+        } else {
+            return "failure";
+        }
     }
 }
